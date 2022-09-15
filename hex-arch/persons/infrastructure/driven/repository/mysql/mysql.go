@@ -3,7 +3,7 @@ package mysql
 import (
 	"database/sql"
 
-	"github.com/devpablocristo/conceptos-go/hex-arch/domain"
+	"github.com/devpablocristo/go-concepts/hex-arch/persons/domain"
 )
 
 type PersonMySQL struct {

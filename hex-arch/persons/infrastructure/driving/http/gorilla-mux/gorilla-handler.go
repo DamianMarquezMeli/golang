@@ -7,8 +7,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	httpport "github.com/devpablocristo/conceptos-go/hex-arch/persons/application/ports/driving"
-	domain "github.com/devpablocristo/conceptos-go/hex-arch/persons/domain"
+	httpport "github.com/devpablocristo/go-concepts/hex-arch/persons/application/ports/driving"
+	domain "github.com/devpablocristo/go-concepts/hex-arch/persons/domain"
 )
 
 type GorillaHandler struct {

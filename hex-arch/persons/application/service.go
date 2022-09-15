@@ -3,8 +3,8 @@ package application
 import (
 	"errors"
 
-	repositoryport "github.com/devpablocristo/conceptos-go/hex-arch/persons/application/ports/driven/repository"
-	domain "github.com/devpablocristo/conceptos-go/hex-arch/persons/domain"
+	repositoryport "github.com/devpablocristo/go-concepts/hex-arch/persons/application/ports/driven/repository"
+	domain "github.com/devpablocristo/go-concepts/hex-arch/persons/domain"
 )
 
 var (

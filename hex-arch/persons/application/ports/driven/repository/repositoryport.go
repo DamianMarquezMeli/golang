@@ -1,7 +1,7 @@
 package repositoryport
 
 import (
-	domain "github.com/devpablocristo/conceptos-go/hex-arch/persons/domain"
+	domain "github.com/devpablocristo/go-concepts/hex-arch/persons/domain"
 )
 
 type Storage interface {

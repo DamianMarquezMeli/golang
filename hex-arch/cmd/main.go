@@ -3,10 +3,10 @@ package main
 import (
 	"sync"
 
-	application "github.com/devpablocristo/conceptos-go/hex-arch/persons/application"
-	domain "github.com/devpablocristo/conceptos-go/hex-arch/persons/domain"
-	inmemorydb "github.com/devpablocristo/conceptos-go/hex-arch/persons/infrastructure/driven/repository/inmemory"
-	goriadapter "github.com/devpablocristo/conceptos-go/hex-arch/persons/infrastructure/driving/http/gorilla-mux"
+	application "github.com/devpablocristo/go-concepts/hex-arch/persons/application"
+	domain "github.com/devpablocristo/go-concepts/hex-arch/persons/domain"
+	inmemorydb "github.com/devpablocristo/go-concepts/hex-arch/persons/infrastructure/driven/repository/inmemory"
+	goriadapter "github.com/devpablocristo/go-concepts/hex-arch/persons/infrastructure/driving/http/gorilla-mux"
 )
 
 func main() {
