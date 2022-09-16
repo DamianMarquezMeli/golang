@@ -29,7 +29,7 @@ func (h *GinHandler) Run(port string) {
 		port = ":8000"
 	}
 
-	log.Printf("GIN listening on %s\n", port)
+	log.Printf("Gin Server listening on %s\n", port)
 	log.Fatal(http.ListenAndServe(port, h.GinRouter))
 }
 
