@@ -1,6 +1,6 @@
 # Para hacer el rebuild mas eficiente
 # es importante el orden de los comandos
-# Poner primero las cosas que no cambian frecuente mente
+# Poner primero las cosas que no cambian frecuentemente
 # y luego las que cambiaran con cada build
 
 # FROM golang:1.8

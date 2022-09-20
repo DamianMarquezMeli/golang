@@ -7,7 +7,7 @@ services:
     container_name: golang
     restart: always
     ports: 
-      - 1111:8080 #no sé pq, no encuetro donde esta escificado, pero el puerto del container debe ser 8080 
+      - 1111:8080
     volumes: 
       - ./src:/app
   mysql:
