@@ -1,3 +1,3 @@
-module github.com/devpablocristo/golang-examples/std-lib/test/3
+module github.com/devpablocristo/go-concepts/std-lib/testing/dic
 
 go 1.18

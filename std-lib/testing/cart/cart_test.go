@@ -1,6 +1,10 @@
-package main
+package main_test
 
-import "testing"
+import (
+	"testing"
+
+	cart "github.com/devpablocristo/go-concepts/std-lib/testing/cart"
+)
 
 func TestSumItems(t *testing.T) {
 
@@ -10,7 +14,7 @@ func TestSumItems(t *testing.T) {
 	items["orange"] = 2
 	items["pear"] = 3
 
-	total := SumItems(items)
+	total := cart.SumItems(items)
 
 	if total != 6 {
 		t.Errorf("Sum incorrect %d + %d + % d, got: %d, expected: %d.", items["apple"], items["orange"], items["pear"], total, 6)
