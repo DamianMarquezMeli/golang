@@ -2,12 +2,14 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"text/template"
 
 	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/mattn/go-sqlite3"
 )
 
 type Employee struct {
@@ -30,7 +32,23 @@ func dbConn() (db *sql.DB) {
 
 	sqliteDatabase, _ := sql.Open("sqlite3", "./sqlite-database.db") // Open the created SQLite File
 	defer sqliteDatabase.Close()                                     // Defer Closing the database
-	createTable(sqliteDatabase)
+
+	return createTable(sqliteDatabase)
+}
+
+func createTable(db *sql.DB) *sql.DB {
+	users_table := `CREATE TABLE users (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        "Name" TEXT,
+        "City" TEXT);`
+	query, err := db.Prepare(users_table)
+	if err != nil {
+		log.Fatal(err)
+	}
+	query.Exec()
+	fmt.Println("Table created successfully!")
+
+	return db
 }
 
 var tmpl = template.Must(template.ParseGlob("form/*"))
