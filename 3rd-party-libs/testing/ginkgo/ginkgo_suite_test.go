@@ -32,7 +32,6 @@ var _ = Describe("Person.IsChild()", func() {
 			// validation (gomega)
 			Expect(response).To(BeTrue())
 		})
-
 	})
 
 	Context("when person is not a chiled", func() {
