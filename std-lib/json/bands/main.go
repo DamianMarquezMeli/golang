@@ -117,4 +117,31 @@ func main() {
 	}
 	fmt.Println(string(b))
 
+	st := &stones
+	s, err := json.Marshal(st)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	//fmt.Println(string(s))
+
+	ab := &albumsBeatles
+	abe, err := json.Marshal(ab)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	//fmt.Println(string(abe))
+
+	as := &albumsStones
+	ast, err := json.Marshal(as)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	//fmt.Println(string(ast))
+
+	coolJSON := string(b) + string(s) + string(abe) + string(ast)
+	fmt.Println(coolJSON)
+
 }
