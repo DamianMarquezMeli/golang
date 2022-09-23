@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -107,5 +108,13 @@ func main() {
 		}}
 
 	fmt.Println(bands)
+
+	be := &beatles
+	b, err := json.Marshal(be)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(b))
 
 }
