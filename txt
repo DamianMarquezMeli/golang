@@ -1,1 +1,1 @@
-Cambiando el archivo txt 
+Cambiando el archivo txt despues del error
