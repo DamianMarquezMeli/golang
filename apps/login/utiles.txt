@@ -1,0 +1,12 @@
+curl -v -X POST http://localhost:8080/nuevo-empleado-JSON -H 'content-type: application/json' -d '{"dniPersona": 77355, "cuilPersona": 7246, "nombresPersona": "Nana", "apellidosPersona": "Wharhol Nuñes", "sexoPersona": "femenino", "observacionesPersona": "nana es linda", "puestoEmpleado": "7g", "movilEmpleado": "118", "numeroLegajoEmpleado": 338, "celularEmpleado": 551123}'
+
+ -X, --request
+ -H, --header
+ -d, --data
+
+ejemplo xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<user>user</user>
+	<password>123</password>
+</root>)
