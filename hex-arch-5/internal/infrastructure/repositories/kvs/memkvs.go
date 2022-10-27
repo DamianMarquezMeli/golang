@@ -5,9 +5,6 @@ import (
 	"errors"
 
 	"github.com/devpablocristo/golang/hex-arch-5/internal/core/domain"
-	// 	"github.com/matiasvarela/errors"
-	// 	"github.com/matiasvarela/minesweeper-hex-arch-sample/internal/core/domain"
-	// 	"github.com/matiasvarela/minesweeper-hex-arch-sample/pkg/apperrors"
 )
 
 type memkvs struct {
