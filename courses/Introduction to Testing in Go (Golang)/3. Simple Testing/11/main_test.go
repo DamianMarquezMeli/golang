@@ -23,6 +23,8 @@ func Test_isPrime(t *testing.T) {
 		{"negative number", -11, false, "Negative numbers are not prime, by definition!"},
 	}
 
+	// func isPrime(n int) (bool, string) {
+
 	for _, e := range primeTests {
 		result, msg := isPrime(e.testNum)
 		if e.expected && !result {

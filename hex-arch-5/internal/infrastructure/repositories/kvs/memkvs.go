@@ -1,0 +1,47 @@
+package memkvsrepo
+
+import (
+	"encoding/json"
+	"errors"
+
+	"github.com/devpablocristo/golang/hex-arch-5/internal/core/domain"
+	// 	"github.com/matiasvarela/errors"
+	// 	"github.com/matiasvarela/minesweeper-hex-arch-sample/internal/core/domain"
+	// 	"github.com/matiasvarela/minesweeper-hex-arch-sample/pkg/apperrors"
+)
+
+type memkvs struct {
+	kvs map[string][]byte
+}
+
+func NewMemKVS() *memkvs {
+	return &memkvs{
+		kvs: map[string][]byte{},
+	}
+}
+
+func (repo *memkvs) GetPatient(id string) (domain.Patient, error) {
+	value, ok := repo.kvs[id]
+	if ok {
+		patient := domain.Patient{}
+		err := json.Unmarshal(value, &patient)
+		if err != nil {
+			return domain.Patient{}, errors.New("fail to get value from kvs")
+		}
+
+		return patient, nil
+	}
+
+	return domain.Patient{}, errors.New("patient not found in kvs")
+}
+
+func (repo *memkvs) SavePatient(patient domain.Patient) error {
+	newPatient, err := json.Marshal(patient)
+	if err != nil {
+		return errors.New("patient fails at marshal into json string")
+	}
+
+	repo.kvs[patient.Patient.UUID] = newPatient
+
+	return nil
+}
