@@ -8,11 +8,11 @@ import (
 )
 
 type PatientService struct {
-	patientRepository ports.PatientRepository
+	patientRepository ports.PatientRepositoryPort
 }
 
 //func New(patientRepository ports.PatientRepository, uidGen uidgen.UIDGen) *service {
-func NewPatientService(patientRepository ports.PatientRepository) *PatientService {
+func NewPatientService(patientRepository ports.PatientRepositoryPort) *PatientService {
 	return &PatientService{
 		patientRepository: patientRepository,
 	}

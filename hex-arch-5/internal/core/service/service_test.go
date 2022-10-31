@@ -1,4 +1,4 @@
-package patientservice_test
+package patientservice
 
 import (
 	"reflect"
@@ -10,11 +10,11 @@ import (
 
 func TestPatientService_GetPatient(t *testing.T) {
 	type fields struct {
-		patientRepository ports.PatientRepository
+		patientRepository ports.PatientRepositoryPort
 	}
 	type args struct {
 		id string
-	}
+	}        
 	tests := []struct {
 		name    string
 		fields  fields

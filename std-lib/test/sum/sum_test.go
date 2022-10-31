@@ -1,34 +1,24 @@
-package sum_test
+package sum
 
-import (
-	"testing"
-
-	sum "github.com/devpablocristo/golang-examples/std-lib/test/sum"
-)
+import "testing"
 
 func TestSum(t *testing.T) {
-	total := sum.Sum(6, 6)
-	if total != 12 {
-		t.Errorf("Sum was incorrect, got: %d, want: %d.", total, 12)
+	type args struct {
+		x int
+		y int
 	}
-}
-
-func TestSumTable(t *testing.T) {
-	tables := []struct {
-		x   int
-		y   int
-		sum int
+	tests := []struct {
+		name string
+		args args
+		want int
 	}{
-		{10, 1, 11},
-		{11, 2, 13},
-		{12, 3, 15},
-		{13, 4, 17},
+		// TODO: Add test cases.
 	}
-
-	for _, table := range tables {
-		total := sum.Sum(table.x, table.y)
-		if total != table.sum {
-			t.Errorf("Sum incorrect (%d+%d), got: %d, expected: %d.", table.x, table.y, total, table.sum)
-		}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Sum(tt.args.x, tt.args.y); got != tt.want {
+				t.Errorf("Sum() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

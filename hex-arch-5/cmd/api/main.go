@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gin-gonic/gin"
+	"github.com/go-rod/rod"
 
-	"github.com/devpablocristo/golang/hex-arch-5/internal/core/domain"
+	domain "github.com/devpablocristo/golang/hex-arch-5/internal/core/domain"
 	patientservice "github.com/devpablocristo/golang/hex-arch-5/internal/core/service"
 	ginhandler "github.com/devpablocristo/golang/hex-arch-5/internal/infrastructure/handlers/gin"
 	memkvsrepo "github.com/devpablocristo/golang/hex-arch-5/internal/infrastructure/repositories/kvs"
+	gorodservice "github.com/devpablocristo/golang/hex-arch-5/internal/infrastructure/scrappers/go-rod"
 )
 
 const webServerPort string = ":8088"
@@ -51,16 +52,14 @@ func main() {
 	}
 	fmt.Println(string(b))
 
+	browser := rod.New().MustConnect()
+	defer browser.MustClose()
+
 	patientRepository := memkvsrepo.NewMemKVS()
 	patientService := patientservice.NewPatientService(patientRepository)
-	patientHandler := ginhandler.NewGinHandler(patientService)
-	// patientHandler.SetupRoutes()
-	// patientHandler.Run(webServerPort)
+	goRodService := gorodservice.NewGoRodService(browser)
+	patientHandler := ginhandler.NewGinHandler(patientService, goRodService)
 
-	router := gin.New()
+	runPatientService(patientHandler)
 
-	router.GET("/patient/:id", patientHandler.GetPatient)
-	router.POST("/patient", patientHandler.CreatePatient)
-
-	router.Run(webServerPort)
 }

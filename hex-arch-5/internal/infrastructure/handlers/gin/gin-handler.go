@@ -11,15 +11,15 @@ import (
 )
 
 type GinHandler struct {
-	patientService ports.PatientService
-	//ginRouter      *gin.Engine
+	patientService  ports.PatientServicePort
+	patientScrapper ports.PatientScrapperPort
 }
 
-//func NewGinHandler(ps ports.PatientService, gr *gin.Engine) *GinHandler {
-func NewGinHandler(ps ports.PatientService) *GinHandler {
+// func NewGinHandler(ps ports.PatientService, gr *gin.Engine) *GinHandler {
+func NewGinHandler(ps ports.PatientServicePort, pe ports.PatientScrapperPort) *GinHandler {
 	return &GinHandler{
-		patientService: ps,
-		//ginRouter:      gr,
+		patientService:  ps,
+		patientScrapper: pe,
 	}
 }
 
@@ -39,7 +39,6 @@ func NewGinHandler(ps ports.PatientService) *GinHandler {
 // 	gh.ginRouter.POST("/patient", func(c *gin.Context) {
 // 		gh.CreatePatient(c)
 // 	})
-
 // }
 
 func (gh *GinHandler) GetPatient(c *gin.Context) {
