@@ -6,16 +6,19 @@ import (
 
 	"github.com/go-rod/rod"
 
-	domain "github.com/devpablocristo/golang/hex-arch/internal/core/domain"
-	patientservice "github.com/devpablocristo/golang/hex-arch/internal/core/service"
-	ginhandler "github.com/devpablocristo/golang/hex-arch/internal/infrastructure/handlers/gin"
-	memkvsrepo "github.com/devpablocristo/golang/hex-arch/internal/infrastructure/repositories/kvs"
-	gorodservice "github.com/devpablocristo/golang/hex-arch/internal/infrastructure/scrappers/go-rod"
+	doctor "github.com/devpablocristo/golang/hex-arch/backend/internal/doctors/domain"
+
+	patient "github.com/devpablocristo/golang/hex-arch/backend/internal/patients/domain"
+	ginhandler "github.com/devpablocristo/golang/hex-arch/backend/internal/patients/infrastructure/handlers/gin"
+	memkvsrepo "github.com/devpablocristo/golang/hex-arch/backend/internal/patients/infrastructure/repositories/kvs"
+	gorodservice "github.com/devpablocristo/golang/hex-arch/backend/internal/patients/infrastructure/scrappers/go-rod"
+	patientservice "github.com/devpablocristo/golang/hex-arch/backend/internal/patients/service"
+	person "github.com/devpablocristo/golang/hex-arch/backend/internal/persons/domain"
 )
 
 func main() {
 
-	patPerson := domain.Person{
+	patPerson := person.Person{
 		UUID:     "1",
 		Name:     "Homero",
 		Lastname: "Simpson",
@@ -23,7 +26,7 @@ func main() {
 		Gender:   "m",
 	}
 
-	docPerson := domain.Person{
+	docPerson := person.Person{
 		UUID:     "2",
 		Name:     "Nick",
 		Lastname: "Riviera",
@@ -31,12 +34,12 @@ func main() {
 		Gender:   "m",
 	}
 
-	doctor := domain.Doctor{
+	doctor := doctor.Doctor{
 		Doctor:     docPerson,
 		Speciality: "Surgery",
 	}
 
-	patient := &domain.Patient{
+	patient := &patient.Patient{
 		Patient:   patPerson,
 		Doctor:    doctor,
 		Hospital:  "General",
@@ -53,7 +56,9 @@ func main() {
 	browser := rod.New().MustConnect()
 	defer browser.MustClose()
 
-	patientRepository := memkvsrepo.NewMemKVS()
+	kvs := make(map[string][]byte)
+
+	patientRepository := memkvsrepo.NewMemKVS(kvs)
 	patientService := patientservice.NewPatientService(patientRepository)
 	goRodService := gorodservice.NewGoRodService(browser)
 	patientHandler := ginhandler.NewGinHandler(patientService, goRodService)
@@ -68,7 +73,7 @@ func main() {
 // 	"log"
 
 // 	"github.com/mercadolibre/fury_go-platform/pkg/fury"
-// 	"github.com/osalomon89/test-crud-api/internal/core/services"
+// 	"github.com/osalomon89/test-crud-api/backend/internal/patients/services"
 // 	"github.com/osalomon89/test-crud-api/internal/infrastructure/repositories/mysql"
 // 	server "github.com/osalomon89/test-crud-api/internal/infrastructure/server"
 // 	"github.com/osalomon89/test-crud-api/internal/infrastructure/server/handler"
