@@ -86,8 +86,6 @@ func getContext() context.Context {
 	// key y value funciona como un map, aunque no se si es una map internamente
 	ctxWithValue := context.WithValue(ctx, 1, 999)
 
-	
-
 	return ctxWithValue
 }
 
