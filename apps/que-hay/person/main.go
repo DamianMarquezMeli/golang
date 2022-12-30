@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"github.com/go-chi/chi"
 )
 
 type persona struct {
@@ -75,4 +77,15 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(string(bs))
+}
+
+
+package main
+
+
+
+func routes() http.Handler {
+	mux := chi.NewRouter
+
+	mux.Use(cors)
 }
