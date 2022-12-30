@@ -1,0 +1,11 @@
+hasta aqui va perfecto
+falta pulir y hacer mas complejo 
+
+dev
+test
+prod
+
+sumado a conexiones con otros servicios
+
+!!!!
+
