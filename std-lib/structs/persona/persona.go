@@ -7,6 +7,9 @@ type Persona struct {
 	apellido string
 	edad     int
 	genero   string
+	hobbies []struct{
+		tipo string
+	}
 }
 
 type Usuario struct {
@@ -31,8 +34,20 @@ func main() {
 			apellido: "Perez",
 			edad:     40,
 			genero:   "m",
+			hobbies: []struct{
+					tipo string
+					}{
+						{"Hello"},
+					},
+				},
+			},
 		},
-	}
+
+		a := SettlementReportAPIResponse{
+			Columns: []struct {
+			   Key string `json:"key"`
+			}{{"a"}},
+		   }
 
 	fmt.Printf("%s", u.datos_personales.nombre)
 	u.saludar2()
