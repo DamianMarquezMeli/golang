@@ -1,1 +1,0 @@
-Aqui van los adapters de los actores secundarios, o driven side, a estos actores, la aplicacion les hace peticiones. 

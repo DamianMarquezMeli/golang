@@ -1,1 +1,0 @@
-Aqui van los adapters de los actores primarios, driver side, los que hacen peticiones a la aplicacion.
