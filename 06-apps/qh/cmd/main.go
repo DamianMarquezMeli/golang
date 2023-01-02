@@ -1,25 +1,33 @@
 package main
 
 import (
+	"os"
 	"sync"
 
-	"go.uber.org/fx"
-
-	"github.com/devpablocristo/golang/apps/qh/internal/commons/settings"
+	"github.com/devpablocristo/golang/06-apps/qh/person/infrastructure/driver-adapter/handler/chi"
 )
+
+const defaultPort = "8080"
 
 func main() {
 	wg := sync.WaitGroup{}
+	defer wg.Wait()
 
-	wg.Add(1)
-	go wg.Wait()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = defaultPort
+	}
 
-	app := fx.New(
-		fx.Provide(
-			settings.New,
-		),
-		fx.Invoke(),
-	)
+	wg.Add(2)
+	go chi.People(&wg)
+	go chi.StartApi(&wg, port)
 
-	app.Run()
+	// app := fx.New(
+	// 	fx.Provide(
+	// 		settings.New,
+	// 	),
+	// 	fx.Invoke(),
+	// )
+
+	// app.Run()
 }
