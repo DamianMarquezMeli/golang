@@ -1,0 +1,29 @@
+{
+    "data":
+        [
+            {
+                "usuario": "user1",
+                "contraseña": "pw1",
+                "nombre": "nombre1",
+                "telefono": "telefono1"
+            },
+            {
+                "usuario": "user2",
+                "contraseña": "pw2",
+                "nombre": "nombre2",
+                "telefono": "telefono2"
+            },
+            {
+                "usuario": "user3",
+                "contraseña": "pw3",
+                "nombre": "nombre3",
+                "telefono": "telefono3"
+            },
+            {
+                "usuario": "user4",
+                "contraseña": "pw4",
+                "nombre": "nombre4",
+                "telefono": "telefono4"
+            }
+        ]
+}
