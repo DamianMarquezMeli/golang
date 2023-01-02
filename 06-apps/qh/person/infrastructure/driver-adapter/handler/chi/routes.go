@@ -17,11 +17,5 @@ func PersonChiRoutes(pch *PersonChiHandler) *chi.Mux {
 		})
 	})
 
-	mux.Group(func(r3 chi.Router) {
-		r3.Get("/get", pch.GetPerson)
-		r3.Post("/create", pch.CreatePerson)
-		r3.Get("/get/{personID}", pch.GetPersonByID)
-	})
-
 	return mux
 }
