@@ -10,7 +10,7 @@ import (
 
 	//"github.com/go-chi/chi/v5"
 
-	cmsdomain "github.com/devpablocristo/golang/06-apps/qh/internal/commons/cmsdomain"
+	cmsdomain "github.com/devpablocristo/golang/06-apps/qh/internal/commons/domain"
 	port "github.com/devpablocristo/golang/06-apps/qh/person/application/port"
 	domain "github.com/devpablocristo/golang/06-apps/qh/person/domain"
 )
