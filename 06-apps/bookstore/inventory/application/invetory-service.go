@@ -1,29 +1,31 @@
 package application
 
 import (
-	"strings"
-
-	inventory "github.com/devpablocristo/interviews/bookstore/src/inventory/domain"
+	"github.com/devpablocristo/golang/06-apps/bookstore/inventory/application/port"
+	"github.com/devpablocristo/golang/06-apps/bookstore/inventory/domain"
 )
 
-func GetBook(i inventory.InventoryInfo) inventory.InventoryInfo {
-	i.Book.Title = strings.ToLower(i.Book.Title)
-	return i
+type InventoryService struct {
+	storage port.Service
 }
 
-type RepositoryInteractor struct {
-	handler RepositoryInteractorRespository
+func NewInventoryService(st port.Service) *InventoryService {
+	return &InventoryService{
+		storage: st,
+	}
 }
 
-func NewRepositoryInteractor(handler RepositoryInteractorRespository) *RepositoryInteractor {
-	return &RepositoryInteractor{handler}
+func (i *InventoryService) GetBook(ISBN string) *domain.Book {
+	//i.Book.Title = strings.ToLower(i.Book.Title)
+	return &domain.Book{}
 }
 
-func (r RepositoryInteractor) SaveBook(book inventory.Book) error {
-	return r.handler.SaveBook(book)
+func (i *InventoryService) SaveBook(book *domain.Book) error {
+	//return r.handler.SaveBook(book)
+	return nil
 }
 
-func (r RepositoryInteractor) ListInventory() ([]inventory.Book, error) {
-	results, _ := r.handler.ListInventory()
-	return results, nil
+func (i *InventoryService) GetInventory() ([]domain.BookStock, error) {
+	//results, _ := r.handler.ListInventory()
+	return domain.Inventory, nil
 }

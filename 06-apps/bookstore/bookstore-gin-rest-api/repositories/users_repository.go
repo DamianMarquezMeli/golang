@@ -47,7 +47,7 @@ func GetUsers() (*user.Users, *errors.RestErr) {
 			restErr := errors.BadRequestError("ERROR! Reading documents.")
 			return nil, restErr
 		}
-		urs = append(urs, &u)
+		urs = append(urs, u)
 	}
 	return &urs, nil
 }
