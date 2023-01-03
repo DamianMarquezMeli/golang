@@ -1,4 +1,4 @@
-package muxrouter
+package handler
 
 import (
 	"log"

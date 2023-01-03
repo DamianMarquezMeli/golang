@@ -4,7 +4,7 @@ import (
 	"log"
 	"testing"
 
-	tinder "github.com/devpablocristo/golang-examples/TDD/tinder-pets"
+	tinder "github.com/devpablocristo/go-concepts/std-lib/testing/tinder-pets"
 )
 
 // func TestAll(t *testing.T) {
@@ -17,17 +17,17 @@ import (
 
 // 	ds := make([]tinder.Dog, 1)
 // 	dogTest := tinder.Dog{
-// 		Race:  "Caschi",
-// 		Size:  "Enano",
-// 		Name:  "Firulais",
-// 		Sex:   "No Binario",
-// 		Color: "Verde",
+// 		Race:  "",
+// 		Size:  "",
+// 		Name:  "",
+// 		Sex:   "",
+// 		Color: "",
 // 	}
 // 	ds[0] = dogTest
 
 // 	want := tinder.Profile{
-// 		Email:    "Pepe",
-// 		PassWord: "12345",
+// 		Email:    "",
+// 		PassWord: "",
 // 		Dog:      ds,
 // 	}
 
@@ -77,7 +77,6 @@ func TestMatchPets(t *testing.T) {
 		log.Printf("Success!!\n")
 		log.Printf("%v match with \n", pet1)
 		log.Printf("%v\n", pet2)
-
 	}
 
 }

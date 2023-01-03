@@ -8,7 +8,7 @@ import (
 var (
 	ErrBadRequest = APIError{
 		StatusCode: http.StatusBadRequest,
-		Type:       "api-error",
+		Type:       "client-error",
 		Error:      "Default",
 		Message:    "Cannot process current request",
 		Method:     "Default",

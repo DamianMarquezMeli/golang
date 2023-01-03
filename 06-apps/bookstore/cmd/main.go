@@ -17,3 +17,9 @@ func main() {
 	api.Start(port)
 	//	other.Start(param)
 }
+
+func Start(port string) {
+	r := routes()
+	server := newServer(port, r)
+	server.Start()
+}

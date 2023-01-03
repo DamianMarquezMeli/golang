@@ -235,35 +235,3 @@ foo@bar:~$ protoc --go_opt=paths=source_relative --go_out=plugins=grpc:chat chat
 ```
 
 Genera codigo para gRPC
-
-
-
-
-
-
-
-
-
-
-
-- gRPC
-- Clean Arch
-- Clean Code
-- PostgreSQL
-- Docker
-- Testing/Mocking
-- DDD
-- TDD
-- BDD
-- Dependency injection
-- Dependency invertion
-- Docker
-- REST
-- GraphQL
-- MongoDB
-- MySQL
-- React
-- React Native
-- Microservice
-- Golang
-- JWT

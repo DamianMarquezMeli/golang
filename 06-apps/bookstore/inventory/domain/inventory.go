@@ -1,9 +1,6 @@
-package inventory
+package domain
 
-type InventoryRepository interface {
-	SaveBook(book Book) error
-	ListInventory() ([]Book, error)
-}
+import "time"
 
 type Book struct {
 	Author Person  `json:"author"`
@@ -17,7 +14,10 @@ type Person struct {
 	Lastname  string `json:"lastname"`
 }
 
-type BookStock struct {
-	Book  Book `json:"book"`
-	Stock int  `json:"stock"`
+type InventoryBook struct {
+	Book      Book      `json:"book"`
+	Stock     int64     `json:"stock"`
+	CreatedAt time.Time `json:"created_at"`
 }
+
+var Inventory []InventoryBook

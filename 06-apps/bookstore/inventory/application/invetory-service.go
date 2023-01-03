@@ -1,12 +1,14 @@
-package repository
+package application
 
 import (
-	inventory "github.com/devpablocristo/interviews/b6/inventory/domain"
+	"strings"
+
+	inventory "github.com/devpablocristo/interviews/bookstore/src/inventory/domain"
 )
 
-type RepositoryInteractorRespository interface {
-	SaveBook(book inventory.Book) error
-	ListInventory() ([]inventory.Book, error)
+func GetBook(i inventory.InventoryInfo) inventory.InventoryInfo {
+	i.Book.Title = strings.ToLower(i.Book.Title)
+	return i
 }
 
 type RepositoryInteractor struct {
