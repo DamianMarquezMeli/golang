@@ -10,7 +10,7 @@ import (
 
 	//"github.com/go-chi/chi/v5"
 
-	cmndomain "github.com/devpablocristo/golang/06-apps/qh/internal/commons/domain"
+	cmsdomain "github.com/devpablocristo/golang/06-apps/qh/internal/commons/cmsdomain"
 	port "github.com/devpablocristo/golang/06-apps/qh/person/application/port"
 	domain "github.com/devpablocristo/golang/06-apps/qh/person/domain"
 )
@@ -45,17 +45,17 @@ func NewChiHandler(ps port.Service, sp string) *ChiHandler {
 func (h *ChiHandler) GetPersons(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var errReq cmndomain.APIError
+	var errReq cmsdomain.APIError
 	errReq.Method = "chiAdapter.GetPerson"
 
 	ctx := r.Context()
 	persons, err := h.personService.GetPersons(ctx)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		errReq = cmndomain.ErrInternalServer
+		errReq = cmsdomain.ErrInternalServer
 		errReq.Error = err.Error()
 		err := json.NewEncoder(w).Encode(
-			cmndomain.ErrInternalServer,
+			cmsdomain.ErrInternalServer,
 		)
 		if err != nil {
 			errReq.Error = err.Error()
@@ -70,7 +70,7 @@ func (h *ChiHandler) GetPersons(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(
-		cmndomain.ResponseAPI{
+		cmsdomain.ResponseAPI{
 			Success: true,
 			Status:  http.StatusCreated,
 			Result:  persons,
@@ -100,14 +100,14 @@ func (h *ChiHandler) CreatePerson(w http.ResponseWriter, r *http.Request) {
 	body := r.Body
 	defer body.Close()
 
-	var errReq cmndomain.APIError
+	var errReq cmsdomain.APIError
 	errReq.Method = "chiAdapter.CreatePerson"
 
 	var newPerson domain.Person
 	err := json.NewDecoder(body).Decode(&newPerson)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		errReq = cmndomain.ErrInvalidJSON
+		errReq = cmsdomain.ErrInvalidJSON
 		errReq.Error = err.Error()
 		err := json.NewEncoder(w).Encode(
 			errReq,
@@ -127,10 +127,10 @@ func (h *ChiHandler) CreatePerson(w http.ResponseWriter, r *http.Request) {
 	person, err := h.personService.CreatePerson(ctx, &newPerson)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		errReq = cmndomain.ErrInternalServer
+		errReq = cmsdomain.ErrInternalServer
 		errReq.Error = err.Error()
 		err := json.NewEncoder(w).Encode(
-			cmndomain.ErrInternalServer,
+			cmsdomain.ErrInternalServer,
 		)
 		if err != nil {
 			errReq.Error = err.Error()
@@ -145,7 +145,7 @@ func (h *ChiHandler) CreatePerson(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(
-		cmndomain.ResponseAPI{
+		cmsdomain.ResponseAPI{
 			Success: true,
 			Status:  http.StatusCreated,
 			Result:  person,

@@ -1,4 +1,4 @@
-package cmndomain
+package cmsdomain
 
 import (
 	"encoding/json"
