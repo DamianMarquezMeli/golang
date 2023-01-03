@@ -19,7 +19,7 @@ type User struct {
 }
 
 // Users lista de usuarios
-type Users []*User
+type Users []User
 
 func (user *User) Validate() *errors.RestErr {
 	user.Email = strings.TrimSpace(strings.ToLower(user.Email))

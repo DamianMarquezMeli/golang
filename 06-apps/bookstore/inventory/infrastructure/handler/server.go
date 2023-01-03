@@ -56,3 +56,16 @@ func (srv *server) gracefulShutdown() {
 	}
 	log.Printf("cmd stopped")
 }
+
+
+
+func main() {
+	router := mux.NewRouter()
+
+	const port string = ":8000"
+
+
+	log.Println("Server listining on port", port)
+	log.Fatalln(http.ListenAndServe(port, router))
+}
+}
