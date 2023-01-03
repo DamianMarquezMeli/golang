@@ -4,7 +4,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/devpablocristo/golang/06-apps/qh/person/infrastructure/driver-adapter/handler/chi"
+	chiAdapter "github.com/devpablocristo/golang/06-apps/qh/person/infrastructure/driver-adapter/handler/chi"
 )
 
 const defaultPort = "8080"
@@ -19,8 +19,8 @@ func main() {
 	}
 
 	wg.Add(2)
-	go chi.People(&wg)
-	go chi.StartApi(&wg, port)
+	go chiAdapter.People(&wg)
+	go chiAdapter.StartApi(&wg, port)
 
 	// app := fx.New(
 	// 	fx.Provide(

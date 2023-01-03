@@ -1,9 +1,8 @@
-package chi
+package chiAdapter
 
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"sync"
 
 	"github.com/devpablocristo/golang/06-apps/qh/person/application"
@@ -32,13 +31,10 @@ func init() {
 }
 
 func People(wg *sync.WaitGroup) {
-
 	people := []domain.Person{
 		p1,
 		p2,
 	}
-
-	fmt.Println(people)
 
 	bs, err := json.Marshal(people)
 	if err != nil {
@@ -54,12 +50,9 @@ func StartApi(wg *sync.WaitGroup, port string) {
 	// db := postgres.ConnectToDB()
 	// defer db.Close()
 
-	log.Println("starting API cmd")
 	ps := application.NewPersonaApplication()
+	handler := NewChiHandler(ps, port)
 
-	pch := NewPersonChiHandler(ps)
-	mux := PersonChiRoutes(pch)
-	server := NewChiServer(port, mux)
-
-	server.ServerStart()
+	handler.SetupChiRoutes()
+	handler.RunChiServer()
 }

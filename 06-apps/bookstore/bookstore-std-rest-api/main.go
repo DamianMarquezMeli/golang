@@ -139,11 +139,13 @@ func main() {
 		{
 			Customer: customer1,
 			Date:     time.Now(),
-			Details:  details1},
+			Details:  details1
+		},
 		{
 			Customer: customer2,
 			Date:     time.Now(),
-			Details:  details2},
+			Details:  details2 
+		},
 	}
 
 	router := mux.NewRouter()
