@@ -1,4 +1,4 @@
-package web
+package cmndomain
 
 import (
 	"encoding/json"

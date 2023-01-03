@@ -7,7 +7,6 @@ import (
 
 func (h *ChiHandler) RunChiServer() {
 	log.Println("starting chi server")
-
 	go func() {
 		err := h.httpServer.ListenAndServe()
 		if err != nil {
@@ -17,5 +16,5 @@ func (h *ChiHandler) RunChiServer() {
 		}
 	}()
 	log.Printf("the chi server is ready to handle requests %s", h.httpServer.Addr)
-	//gracefulServerShutdown()
+	//gracefulChiServerShutdown()
 }

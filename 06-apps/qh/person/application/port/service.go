@@ -7,7 +7,7 @@ import (
 )
 
 type Service interface {
-	GetPerson(domain.Person) error
+	GetPersons(context.Context) ([]domain.Person, error)
 	GetPersonByID(domain.Person) error
 	CreatePerson(context.Context, *domain.Person) (*domain.Person, error)
 	ListPersons() map[string]domain.Person

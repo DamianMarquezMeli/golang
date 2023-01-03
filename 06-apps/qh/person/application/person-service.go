@@ -18,14 +18,28 @@ func NewPersonaApplication( /*s port.Storage, h port.Handler*/ ) *PersonService 
 	}
 }
 
-func (ps *PersonService) GetPerson(p domain.Person) error {
-	// if ps.storage.Exists(p.UUID) {
-	// 	return ErrPersonExists
-	// }
+func (ps *PersonService) GetPersons(ctx context.Context) ([]domain.Person, error) {
 
-	// ps.storage.Add(p)
+	p1 := domain.Person{
+		UUID:     "1",
+		Name:     "Homero",
+		Lastname: "Simpson",
+		Age:      39,
+	}
 
-	return nil
+	p2 := domain.Person{
+		UUID:     "2",
+		Name:     "Marge",
+		Lastname: "Simpson",
+		Age:      32,
+	}
+
+	people := []domain.Person{
+		p1,
+		p2,
+	}
+
+	return people, nil
 }
 
 func (ps *PersonService) GetPersonByID(p domain.Person) error {

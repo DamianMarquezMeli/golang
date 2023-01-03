@@ -1,19 +1,18 @@
 package chiAdapter
 
 import (
-	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/go-chi/chi"
-	"github.com/mercadolibre/go-meli-toolkit/goutils/logger"
+
 	//"github.com/go-chi/chi/v5"
 
-	"github.com/devpablocristo/golang/06-apps/qh/person/application/port"
-	"github.com/devpablocristo/golang/06-apps/qh/person/domain"
+	cmndomain "github.com/devpablocristo/golang/06-apps/qh/internal/commons/domain"
+	port "github.com/devpablocristo/golang/06-apps/qh/person/application/port"
+	domain "github.com/devpablocristo/golang/06-apps/qh/person/domain"
 )
 
 type ChiHandler struct {
@@ -43,27 +42,43 @@ func NewChiHandler(ps port.Service, sp string) *ChiHandler {
 	}
 }
 
-func (h *ChiHandler) GetPerson(w http.ResponseWriter, r *http.Request) {
-	// p := s.gtw.GetPatients()
-	// if p == nil || len(p) == 0 {
-	// 	p = []*models.Patient{}
-	// }
-	// web.Success(&p, http.StatusOK).Send(w)
+func (h *ChiHandler) GetPersons(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 
-	// code := chi.URLParam(r, "code")
-	// redirect, err := useCase.CodeToUrl(code)
-	// if err != nil {
-	// 	if err == entity.ErrRedirectNotFound {
-	// 		http.Error(w, err.Error(), http.StatusNotFound)
-	// 		return
-	// 	}
-	// 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-	// 	return
-	// }
-	// http.Redirect(w, r, redirect.URL, http.StatusMovedPermanently)
+	var errReq cmndomain.APIError
+	errReq.Method = "chiAdapter.GetPerson"
 
-	fmt.Println("hola")
-	w.Write([]byte("hola"))
+	ctx := r.Context()
+	persons, err := h.personService.GetPersons(ctx)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		errReq = cmndomain.ErrInternalServer
+		errReq.Error = err.Error()
+		err := json.NewEncoder(w).Encode(
+			cmndomain.ErrInternalServer,
+		)
+		if err != nil {
+			errReq.Error = err.Error()
+			log.Println(errReq)
+			w.Write([]byte(errReq.Message + " - " + errReq.Error))
+			return
+		}
+		log.Println(errReq)
+		w.Write([]byte(errReq.Message + " - " + errReq.Error))
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(
+		cmndomain.ResponseAPI{
+			Success: true,
+			Status:  http.StatusCreated,
+			Result:  persons,
+		},
+	)
+
+	// fmt.Println("hola")
+	// w.Write([]byte("hola"))
 }
 
 func (h *ChiHandler) GetPersonByID(w http.ResponseWriter, r *http.Request) {
@@ -80,67 +95,60 @@ func (h *ChiHandler) GetPersonByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ChiHandler) CreatePerson(w http.ResponseWriter, r *http.Request) {
-	//r.Header().Set("Content-Type", contentType)
-	ctx := r.Context()
+	w.Header().Set("Content-Type", "application/json")
 
 	body := r.Body
 	defer body.Close()
+
+	var errReq cmndomain.APIError
+	errReq.Method = "chiAdapter.CreatePerson"
+
 	var newPerson domain.Person
 	err := json.NewDecoder(body).Decode(&newPerson)
 	if err != nil {
-		log.Println("Invalid JSON")
-		w.Write([]byte("Invalid JSON"))
+		w.WriteHeader(http.StatusBadRequest)
+		errReq = cmndomain.ErrInvalidJSON
+		errReq.Error = err.Error()
+		err := json.NewEncoder(w).Encode(
+			errReq,
+		)
+		if err != nil {
+			errReq.Error = err.Error()
+			log.Println(errReq)
+			w.Write([]byte(errReq.Message + " - " + errReq.Error))
+			return
+		}
+		log.Println(errReq)
+		w.Write([]byte(errReq.Message + " - " + errReq.Error))
 		return
 	}
 
+	ctx := r.Context()
 	person, err := h.personService.CreatePerson(ctx, &newPerson)
 	if err != nil {
-		log.Println("Bad Request")
-		w.Write([]byte("Bad Request"))
-		return
-	}
-
-	log.Println(person)
-	w.Write([]byte(person.Name))
-
-	w.Header().Set("Content-Type", "application/json")
-
-	//logger.Error("Error decoding JSON", errors.New("test logger"))
-
-	var newLogin domain.Login
-	err := json.NewDecoder(r.Body).Decode(&newLogin)
-	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		err := json.NewEncoder(w).Encode(FuryHandlerError{
-			StatusCode: http.StatusInternalServerError,
-			Message:    err.Error(),
-			Method:     "furyhandler.Help",
-		})
+		errReq = cmndomain.ErrInternalServer
+		errReq.Error = err.Error()
+		err := json.NewEncoder(w).Encode(
+			cmndomain.ErrInternalServer,
+		)
 		if err != nil {
-			logger.Errorf("Error decoding JSON", err)
-			return err
+			errReq.Error = err.Error()
+			log.Println(errReq)
+			w.Write([]byte(errReq.Message + " - " + errReq.Error))
+			return
 		}
-		logger.Errorf("Error parcing body", err)
-		return err
-	}
-
-	ctx := context.WithValue(r.Context(), userID, newLogin.UserID)
-	info, err := hf.autoTestService.CheckHelp(ctx, newLogin)
-	if err != nil {
-		err := json.NewEncoder(w).Encode(FuryHandlerError{
-			StatusCode: http.StatusInternalServerError,
-			Message:    err.Error(),
-			Method:     "autoTestService.CheckHelp",
-		})
-		logger.Errorf("Error on application layer", err)
-		return err
+		log.Println(errReq)
+		w.Write([]byte(errReq.Message + " - " + errReq.Error))
+		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(domain.ResponseInfo{
-		Status: http.StatusCreated,
-		Data:   info,
-	})
-	return nil
-
+	json.NewEncoder(w).Encode(
+		cmndomain.ResponseAPI{
+			Success: true,
+			Status:  http.StatusCreated,
+			Result:  person,
+		},
+	)
 }
