@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 func addOneHundred(message chan<- int, value int) {
 	message <- value + 100
@@ -8,6 +11,7 @@ func addOneHundred(message chan<- int, value int) {
 
 func main() {
 	channel := make(chan int, 3) // create channel
+	var wg sync.WaitGroup
 
 	go addOneHundred(channel, 100) // send value 100 to channel
 	go addOneHundred(channel, 200) // send value 200 to channel
@@ -25,11 +29,15 @@ func main() {
 	channel <- 1000
 	channel <- 929292
 
+	//wg.Add(1)
 	go func() {
 		for v := range channel {
 			fmt.Println(v)
 		}
 		close(channel)
+		wg.Done()
 	}()
+	//wg.Wait()
 
+	//fmt.Scanln()
 }
