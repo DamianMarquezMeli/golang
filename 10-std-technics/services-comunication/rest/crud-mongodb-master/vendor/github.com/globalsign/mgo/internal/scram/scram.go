@@ -27,7 +27,6 @@
 // Package scram implements a SCRAM-{SHA-1,etc} client per RFC5802.
 //
 // http://tools.ietf.org/html/rfc5802
-//
 package scram
 
 import (
@@ -45,17 +44,16 @@ import (
 //
 // A Client may be used within a SASL conversation with logic resembling:
 //
-//    var in []byte
-//    var client = scram.NewClient(sha1.New, user, pass)
-//    for client.Step(in) {
-//            out := client.Out()
-//            // send out to server
-//            in := serverOut
-//    }
-//    if client.Err() != nil {
-//            // auth failed
-//    }
-//
+//	var in []byte
+//	var client = scram.NewClient(sha1.New, user, pass)
+//	for client.Step(in) {
+//	        out := client.Out()
+//	        // send out to server
+//	        in := serverOut
+//	}
+//	if client.Err() != nil {
+//	        // auth failed
+//	}
 type Client struct {
 	newHash func() hash.Hash
 
@@ -75,8 +73,7 @@ type Client struct {
 //
 // For SCRAM-SHA-1, for example, use:
 //
-//    client := scram.NewClient(sha1.New, user, pass)
-//
+//	client := scram.NewClient(sha1.New, user, pass)
 func NewClient(newHash func() hash.Hash, user, pass string) *Client {
 	c := &Client{
 		newHash: newHash,

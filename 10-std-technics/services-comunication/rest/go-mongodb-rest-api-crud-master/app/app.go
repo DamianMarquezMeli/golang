@@ -1,13 +1,13 @@
 package main
 
 import (
-	"os"
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
-	"gopkg.in/mgo.v2/bson"
 	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
 
 	. "github.com/user/app/config"
 	. "github.com/user/app/dao"
@@ -89,8 +89,8 @@ func Health(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	retResponse(w, http.StatusOK, map[string]string{"server":name,"result": "success"})
-} 
+	retResponse(w, http.StatusOK, map[string]string{"server": name, "result": "success"})
+}
 
 func respondWithError(w http.ResponseWriter, code int, msg string) {
 	retResponse(w, code, map[string]string{"error": msg})

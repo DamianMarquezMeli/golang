@@ -1,10 +1,10 @@
 package user_service_test
 
 import (
+	m "../../models"
+	userService "../user.service"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"testing"
-	userService "../user.service"
-	m "../../models"
 	"time"
 )
 
@@ -16,9 +16,9 @@ func TestCreate(t *testing.T) {
 	userId = oid.Hex()
 
 	user := m.User{
-		ID: oid,
-		Name: "Jesus",
-		Email: "jesus.matiz@micorreo.com",
+		ID:        oid,
+		Name:      "Jesus",
+		Email:     "jesus.matiz@micorreo.com",
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -54,7 +54,7 @@ func TestRead(t *testing.T) {
 func TestUpdate(t *testing.T) {
 
 	user := m.User{
-		Name: "Jesus Matiz",
+		Name:  "Jesus Matiz",
 		Email: "jesus.matiz.prg@gmail.com",
 	}
 

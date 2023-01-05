@@ -4,6 +4,7 @@
 // not use this file except in compliance with the License. You may obtain
 // a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
+//go:build !go1.9
 // +build !go1.9
 
 package bson // import "go.mongodb.org/mongo-driver/bson"
@@ -26,7 +27,7 @@ type Zeroer interface {
 //
 // Example usage:
 //
-// 		bson.D{{"foo", "bar"}, {"hello", "world"}, {"pi", 3.14159}}
+//	bson.D{{"foo", "bar"}, {"hello", "world"}, {"pi", 3.14159}}
 type D []E
 
 // Map creates a map from the elements of the D.
@@ -50,14 +51,14 @@ type E struct {
 //
 // Example usage:
 //
-// 		bson.M{"foo": "bar", "hello": "world", "pi": 3.14159}
+//	bson.M{"foo": "bar", "hello": "world", "pi": 3.14159}
 type M map[string]interface{}
 
 // An A is an ordered representation of a BSON array.
 //
 // Example usage:
 //
-// 		bson.A{"bar", "world", 3.14159, bson.D{{"qux", 12345}}}
+//	bson.A{"bar", "world", 3.14159, bson.D{{"qux", 12345}}}
 type A []interface{}
 
 func formatDouble(f float64) string {

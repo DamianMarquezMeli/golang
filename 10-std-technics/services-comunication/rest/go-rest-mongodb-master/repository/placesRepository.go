@@ -13,10 +13,11 @@ import (
 	"time"
 )
 
-type PlacesRepository struct {}
+type PlacesRepository struct{}
 
 var config Config
 var collection = new(mongo.Collection)
+
 const PlacesCollection = "Places"
 
 func init() {

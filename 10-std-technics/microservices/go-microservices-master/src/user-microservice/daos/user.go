@@ -77,7 +77,7 @@ func (u *User) Login(name string, password string) (models.User, error) {
 	collection := sessionCopy.DB(databases.Database.Databasename).C(common.ColUsers)
 
 	var user models.User
-	err := collection.Find(bson.M{"$and": []bson.M{bson.M{"name": name}, bson.M{"password": password}}}).One(&user)
+	err := collection.Find(bson.M{"$and": []bson.M{{"name": name}, {"password": password}}}).One(&user)
 	return user, err
 }
 

@@ -74,7 +74,7 @@ func ResetStats() {
 //
 // Relevant documentation:
 //
-//    https://docs.mongodb.com/manual/reference/command/serverStatus/
+//	https://docs.mongodb.com/manual/reference/command/serverStatus/
 //
 // TODO outdated fields ?
 type Stats struct {

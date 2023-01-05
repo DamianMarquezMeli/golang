@@ -12,5 +12,5 @@ func AddPlacesRouter(r *mux.Router) *mux.Router {
 	s.HandleFunc("", controllers.CreatePlace).Methods("POST")
 	s.HandleFunc("", controllers.UpdatePlace).Methods("PUT")
 	s.HandleFunc("/{id}", controllers.DeletePlace).Methods("DELETE")
-	return s;
+	return s
 }
