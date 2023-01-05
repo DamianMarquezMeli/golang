@@ -4,10 +4,10 @@ import "testing"
 
 func Test_isPrime(t *testing.T) {
 	primeTests := []struct {
-		name string
-		testNum int
+		name     string
+		testNum  int
 		expected bool
-		msg string
+		msg      string
 	}{
 		{"prime", 7, true, "7 is a prime number!"},
 		{"not prime", 8, false, "8 is not a prime number because it is divisible by 2!"},

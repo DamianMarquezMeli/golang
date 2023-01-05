@@ -8,7 +8,7 @@ import "fmt"
 func main() {
 	s := "hi"
 	s = "hello"
-	
+
 	fmt.Println(s == "hello")
 	fmt.Println(s != "hello")
 

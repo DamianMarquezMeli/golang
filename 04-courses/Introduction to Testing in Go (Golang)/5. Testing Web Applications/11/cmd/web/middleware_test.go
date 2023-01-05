@@ -9,11 +9,11 @@ import (
 )
 
 func Test_application_addIPToContext(t *testing.T) {
-	tests := []struct{
-		headerName string
+	tests := []struct {
+		headerName  string
 		headerValue string
-		addr string
-		emptyAddr bool
+		addr        string
+		emptyAddr   bool
 	}{
 		{"", "", "", false},
 		{"", "", "", true},
@@ -24,7 +24,7 @@ func Test_application_addIPToContext(t *testing.T) {
 	var app application
 
 	// create a dummy handler that we'll use to check the context
-	nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
+	nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// make sure that the value exists in the context
 		val := r.Context().Value(contextUserKey)
 		if val == nil {

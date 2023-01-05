@@ -21,10 +21,10 @@ package main
 
 import "fmt"
 
-//* The shop has lifts for multiple vehicle sizes/types:
-//  - Motorcycles: small lifts
-//  - Cars: standard lifts
-//  - Trucks: large lifts
+// * The shop has lifts for multiple vehicle sizes/types:
+//   - Motorcycles: small lifts
+//   - Cars: standard lifts
+//   - Trucks: large lifts
 const (
 	SmallLift = iota
 	StandardLift
@@ -41,17 +41,17 @@ type Motorcycle string
 type Car string
 type Truck string
 
-//* Vehicles have a model name in addition to the vehicle type:
+// * Vehicles have a model name in addition to the vehicle type:
 func (m Motorcycle) String() string {
 	return fmt.Sprintf("Motorcycle: %v", string(m))
 }
 
-//* Vehicles have a model name in addition to the vehicle type:
+// * Vehicles have a model name in addition to the vehicle type:
 func (c Car) String() string {
 	return fmt.Sprintf("Car: %v", string(c))
 }
 
-//* Vehicles have a model name in addition to the vehicle type:
+// * Vehicles have a model name in addition to the vehicle type:
 func (t Truck) String() string {
 	return fmt.Sprintf("Truck: %v", string(t))
 }
@@ -68,8 +68,8 @@ func (t Truck) PickLift() Lift {
 	return LargeLift
 }
 
-//* Write a single function to handle all of the vehicles
-//  that the shop works on.
+//   - Write a single function to handle all of the vehicles
+//     that the shop works on.
 func sendToLift(p LiftPicker) {
 	switch p.PickLift() {
 	case SmallLift:

@@ -23,8 +23,8 @@ import "unicode"
 
 type LineCallback func(line string)
 
-//* Create a single function to iterate over each line of text that is
-//  provided in main().
+//   - Create a single function to iterate over each line of text that is
+//     provided in main().
 func lineIterator(lines []string, callback LineCallback) {
 	for i := 0; i < len(lines); i++ {
 		//  - The function must return nothing and must execute a closure

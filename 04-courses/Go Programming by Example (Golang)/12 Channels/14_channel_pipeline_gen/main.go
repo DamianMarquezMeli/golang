@@ -12,7 +12,6 @@ import "fmt"
 // step 1: function gen(numbers) sends some numbers to channel c.
 // step 2: function sq(channel) reads those values from channel c and squares them.
 // Ref: https://blog.golang.org/pipelines
-//
 func main() {
 	nums := []int{2, 3, 4}
 	c := gen(nums...)

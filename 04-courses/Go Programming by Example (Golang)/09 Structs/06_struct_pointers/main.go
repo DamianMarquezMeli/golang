@@ -20,7 +20,7 @@ func main() {
 
 	player2 := player{"Diego Maradona", "Soccer", 57}
 	p2 := &player2
-	
+
 	fmt.Printf("(*p2).name=%s p2.name=%s\n", (*p2).name, p2.name)
 	fmt.Println("Player 2:", (*p2))
 }

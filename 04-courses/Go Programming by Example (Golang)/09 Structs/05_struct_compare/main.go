@@ -62,7 +62,6 @@ func compare2(p *book, q *book) bool { // call by ref
 
 func testSizeOfStruct() {
 
-
 	type values struct {
 		val1 int32 // 4 bytes
 		val2 int32 // 4 bytes

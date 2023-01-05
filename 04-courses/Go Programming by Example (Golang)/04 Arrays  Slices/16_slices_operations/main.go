@@ -18,7 +18,6 @@ import "fmt"
 // Insert (a=[1 2 0 0 0 0 7 4 5 6 0 0 0] -> a=[1 2 0 9 10 0 0 0 7 4 5 6 0 0 0])
 //
 // Ref: https://github.com/golang/go/wiki/SliceTricks
-//
 func main() {
 
 	a := []int{1, 2, 3}

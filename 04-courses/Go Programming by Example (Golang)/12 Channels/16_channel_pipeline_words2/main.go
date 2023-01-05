@@ -10,7 +10,7 @@ import (
 	tjarratt "github.com/tjarratt/babble"
 )
 
-// ASSIGNMENT: Rewrite the previous assignment (pipeline-like) 
+// ASSIGNMENT: Rewrite the previous assignment (pipeline-like)
 // using functions and unidirectional Channels.
 func main() {
 

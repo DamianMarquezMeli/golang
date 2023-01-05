@@ -23,7 +23,7 @@ type Coordinate struct {
 	x, y int
 }
 
-//* Create a rectangle structure containing its coordinates
+// * Create a rectangle structure containing its coordinates
 type Rectangle struct {
 	a Coordinate // top left
 	b Coordinate // bottom right
@@ -37,8 +37,8 @@ func length(rect Rectangle) int {
 	return (rect.a.y - rect.b.y)
 }
 
-//* Using functions, calculate the area and perimeter of a rectangle,
-//  - The functions must use the rectangle structure as the function parameter
+// * Using functions, calculate the area and perimeter of a rectangle,
+//   - The functions must use the rectangle structure as the function parameter
 func area(rect Rectangle) int {
 	return length(rect) * width(rect)
 }
@@ -47,7 +47,7 @@ func perimeter(rect Rectangle) int {
 	return (width(rect) * 2) + (length(rect) * 2)
 }
 
-//  - Print the results to the terminal
+// - Print the results to the terminal
 func printInfo(rect Rectangle) {
 	fmt.Println("Area is", area(rect))
 	fmt.Println("Perimeter is", perimeter(rect))

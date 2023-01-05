@@ -7,10 +7,12 @@ import "fmt"
 
 // ASSIGNMENT - Using 'closure' write an addBy() function to add x to the
 // previous value of the function. For instance,
-//		addCounter := addBy();  Println(addCounter(2)); Println(addCounter(-1))
-// Also write a multBy() function to multiply by x. For instance,
-//		multCounter := multBy();  Println(multCounter(3)); Println(multCounter(-2))
 //
+//	addCounter := addBy();  Println(addCounter(2)); Println(addCounter(-1))
+//
+// Also write a multBy() function to multiply by x. For instance,
+//
+//	multCounter := multBy();  Println(multCounter(3)); Println(multCounter(-2))
 func main() {
 	addCounter, multCounter := addBy(), multBy()
 

@@ -90,7 +90,7 @@ func (m mazo) guardarEnArchivoTxt(nombreArchivo string) error {
 */
 
 /*
-	esta solución poco eficiente, MEJORAR.
+esta solución poco eficiente, MEJORAR.
 */
 func (m mazo) guardarEnArchivoCsv(nombreArchivo string) error {
 	archivoCsv, err := os.Create(nombreArchivo + ".csv")

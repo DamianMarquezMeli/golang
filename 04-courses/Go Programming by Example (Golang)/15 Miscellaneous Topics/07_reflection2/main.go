@@ -19,15 +19,15 @@ func main() {
 
 func testCase1() {
 	t := reflect.TypeOf(10)
-	fmt.Println(t) 
+	fmt.Println(t)
 
-	fmt.Println(reflect.TypeOf(10.31))   
-	fmt.Println(reflect.TypeOf(true))         
-	fmt.Println(reflect.TypeOf([]int{1, 2}))    
-	fmt.Println(reflect.TypeOf([...]int{1, 2})) 
+	fmt.Println(reflect.TypeOf(10.31))
+	fmt.Println(reflect.TypeOf(true))
+	fmt.Println(reflect.TypeOf([]int{1, 2}))
+	fmt.Println(reflect.TypeOf([...]int{1, 2}))
 
 	var f io.Writer = os.Stdout
-	fmt.Println(reflect.TypeOf(f)) 
+	fmt.Println(reflect.TypeOf(f))
 
 }
 
@@ -35,14 +35,14 @@ func testCase2() {
 
 	i := 10
 	iV := reflect.ValueOf(i)
-	fmt.Println(iV)                         
-	fmt.Printf("%v\n", iV)                    
-	fmt.Println(iV.String())                  
-	fmt.Println(reflect.ValueOf(i))           
-	fmt.Println(reflect.ValueOf(i).String())  
+	fmt.Println(iV)
+	fmt.Printf("%v\n", iV)
+	fmt.Println(iV.String())
+	fmt.Println(reflect.ValueOf(i))
+	fmt.Println(reflect.ValueOf(i).String())
 
 	t := iV.Type()
-	fmt.Println(t.String())  
+	fmt.Println(t.String())
 }
 
 func testCase3() {

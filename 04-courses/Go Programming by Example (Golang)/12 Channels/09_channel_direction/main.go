@@ -19,12 +19,12 @@ import (
 // the random values (generated in steps 1 & 2) to the balance.
 //
 // Here's a sample output that indicates that the balance is randomly changing:
-//		Press Enter to stop the program ...
-// 		=> 200 + (6) = 206
-// 		=> 206 + (-10) = 196
-// 		=> 196 + (3) = 199
-// 		=> 199 + (-2) = 197
 //
+//	Press Enter to stop the program ...
+//	=> 200 + (6) = 206
+//	=> 206 + (-10) = 196
+//	=> 196 + (3) = 199
+//	=> 199 + (-2) = 197
 var currentBalance = 200
 
 func main() {

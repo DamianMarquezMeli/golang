@@ -16,7 +16,7 @@ func main() {
 	wg.Wait()
 }
 
-//G1 - goroutine
+// G1 - goroutine
 func G1(ch chan<- int) {
 	defer wg.Done()
 	for _, v := range []int{1, 2, 3, 4} {
@@ -25,7 +25,7 @@ func G1(ch chan<- int) {
 	close(ch)
 }
 
-//G2 - goroutine
+// G2 - goroutine
 func G2(ch <-chan int) {
 	defer wg.Done()
 	for v := range ch {

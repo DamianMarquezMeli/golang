@@ -83,8 +83,8 @@ func main() {
 }
 
 /*
-	w respuesta del servidor al cliente
-	r peticion del cliente al servidor
+w respuesta del servidor al cliente
+r peticion del cliente al servidor
 */
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Bienvenido a mi increible API!")
