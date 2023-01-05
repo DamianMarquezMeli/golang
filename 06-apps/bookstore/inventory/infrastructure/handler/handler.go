@@ -8,13 +8,24 @@ import (
 	"strconv"
 	"strings"
 
-	domain "github.com/devpablocristo/interviews/bookstore/src/inventory/domain"
 	"github.com/gorilla/mux"
+
+	cdomain "github.com/devpablocristo/golang/06-apps/bookstore/commons/domain"
+	port "github.com/devpablocristo/golang/06-apps/bookstore/inventory/application/port"
+	domain "github.com/devpablocristo/golang/06-apps/bookstore/inventory/domain"
+	mapdb "github.com/devpablocristo/golang/06-apps/bookstore/inventory/infrastructure/repository/inmemory/mapdb"
+	slicedb "github.com/devpablocristo/golang/06-apps/bookstore/inventory/infrastructure/repository/inmemory/slicedb"
+	pdomain "github.com/devpablocristo/golang/06-apps/bookstore/person/domain"
+)
+
+var (
+	mapDB   = mapdb.NewMapDB()
+	sliceDB = slicedb.NewSliceDB()
 )
 
 func init() {
-	book1 := Book{
-		Author: Person{
+	book1 := domain.Book{
+		Author: pdomain.Person{
 			Firstname: "Isaac",
 			Lastname:  "Asimov",
 		},
@@ -23,8 +34,8 @@ func init() {
 		ISBN:  "0-553-29335-4",
 	}
 
-	book2 := Book{
-		Author: Person{
+	book2 := domain.Book{
+		Author: pdomain.Person{
 			Firstname: "Stanislaw",
 			Lastname:  "Lem",
 		},
@@ -33,8 +44,8 @@ func init() {
 		ISBN:  "0156027607",
 	}
 
-	book3 := Book{
-		Author: Person{
+	book3 := domain.Book{
+		Author: pdomain.Person{
 			Firstname: "Arthur C.",
 			Lastname:  "Clarck",
 		},
@@ -43,17 +54,17 @@ func init() {
 		ISBN:  "0-575-01587-X",
 	}
 
-	book4 := Book{
-		Author: Person{
+	book4 := domain.Book{
+		Author: pdomain.Person{
 			Firstname: "Jorge Luis",
 			Lastname:  "Borges",
 		},
-		Title: "El 'Martín Fierro'",
+		Title: "El Aleph",
 		Price: 42.75,
 		ISBN:  "84-206-1933-7",
 	}
 
-	Inventory = []InventoryInfo{
+	domain.Inventory = []domain.BookStock{
 		{
 			Book:  book1,
 			Stock: 41,
@@ -71,73 +82,34 @@ func init() {
 			Stock: 93,
 		},
 	}
+
+	mapDB.SaveBook(b1)
+	mapDB.SaveBook(b2)
+
+	sliceDB.SaveBook(b1)
+	sliceDB.SaveBook(b2)
+
+	fmt.Println(*mapDB)
+	fmt.Println(sliceDB)
 }
 
-var inventory []domain.Book
-var id uint
-
-func books() {
-	id = 4
-
-	book1 := domain.Book{
-		ID: 1,
-		Author: domain.Author{
-			Firstname: "Isaac",
-			Lastname:  "Asimov",
-		},
-		Title: "Fundation",
-		Price: 28.50,
-		ISBN:  "0-553-29335-4",
-		Stock: 9,
-	}
-
-	book2 := domain.Book{
-		ID: 2,
-		Author: domain.Author{
-			Firstname: "Stanislaw",
-			Lastname:  "Lem",
-		},
-		Title: "Solaris",
-		Price: 65.20,
-		ISBN:  "0156027607",
-		Stock: 15,
-	}
-
-	book3 := domain.Book{
-		ID: 3,
-		Author: domain.Author{
-			Firstname: "Arthur C.",
-			Lastname:  "Clarck",
-		},
-		Title: "Rendezvous with Rama",
-		Price: 53.50,
-		ISBN:  "0-575-01587-X",
-	}
-
-	book4 := domain.Book{
-		ID: 4,
-		Author: domain.Author{
-			Firstname: "Jorge Luis",
-			Lastname:  "Borges",
-		},
-		Title: "El Aleph",
-		Price: 42.75,
-		ISBN:  "84-206-1933-7",
-	}
-
-	inventory = []domain.Book{
-		book1,
-		book2,
-		book3,
-		book4,
-	}
-
+type ErrorResponse struct {
+	Message string `json:"error"`
 }
 
-func GetBook(w http.ResponseWriter, r *http.Request) domain.Book {
+type Handler struct {
+	inventory port.Service
+}
 
+func NewHandler(in port.Service) *Handler {
+	return &Handler{
+		inventory: in,
+	}
+}
+
+func (h Handler) GetBook(w http.ResponseWriter, r *http.Request) {
 	book1 := domain.Book{
-		Author: domain.Person{
+		Author: pdomain.Person{
 			Firstname: "Isaac",
 			Lastname:  "Asimov",
 		},
@@ -146,17 +118,29 @@ func GetBook(w http.ResponseWriter, r *http.Request) domain.Book {
 		ISBN:  "0-553-29335-4",
 	}
 
-	return book1
-
+	fmt.Println(book1)
 }
 
-func ListBooks(w http.ResponseWriter, r *http.Request) {
+func (h Handler) GetInventory(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(myRest.Inventory)
+
+	inventory, err := h.inventory.GetInventory()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(ErrorResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	json.NewEncoder(w).Encode(cdomain.ResponseInfo{
+		Status: http.StatusOK,
+		Data:   inventory,
+	})
 }
 
-func AddBooks(w http.ResponseWriter, r *http.Request) {
+func (h Handler) AddBookList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	received_JSON, err := ioutil.ReadAll(r.Body)
@@ -166,8 +150,8 @@ func AddBooks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newBooksSlice := make([]domain.InventoryInfo, 0)
-	err = json.Unmarshal(received_JSON, &newBooksSlice)
+	newBookStock := make([]domain.BookStock, 0)
+	err = json.Unmarshal(received_JSON, &newBookStock)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprintf(w, `{"error":"Error unmarshaling the request: %v"}`, err)
@@ -179,7 +163,7 @@ func AddBooks(w http.ResponseWriter, r *http.Request) {
 		inventoryMap[domain.Inventory[i].Book.ISBN] = domain.Inventory[i].Stock
 	}
 
-	for _, v := range newBooksSlice {
+	for _, v := range newBookStock {
 		if _, found := inventoryMap[v.Book.ISBN]; !found {
 			domain.Inventory = append(domain.Inventory, v)
 		} else {
@@ -203,27 +187,10 @@ func AddBooks(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-type HTTPInteractor struct {
-	handler usecases.UseCasesInteractor
-}
-
-type ErrorResponse struct {
-	Message string `json:"error"`
-}
-
-func NewHTTPInteractor(handler usecases.UseCasesInteractor) *HTTPInteractor {
-	return &HTTPInteractor{handler}
-}
-
-func MakeHTTPInteractor(handler usecases.UseCasesInteractor) HTTPInteractor {
-	return HTTPInteractor{handler}
-}
-
-func (h HTTPInteractor) Add(res http.ResponseWriter, req *http.Request) {
+func (h Handler) AddBook(res http.ResponseWriter, req *http.Request) {
 	res.Header().Set("Content-Type", "application/json")
 
-	var book inventory.Book
-
+	var book domain.Book
 	err := json.NewDecoder(req.Body).Decode(&book)
 	if err != nil {
 		res.WriteHeader(http.StatusInternalServerError)
@@ -232,6 +199,11 @@ func (h HTTPInteractor) Add(res http.ResponseWriter, req *http.Request) {
 	}
 
 	err2 := h.handler.SaveBook(book)
+
+	// id = id + 1
+	// newBook.ID = id
+	// inventory = append(inventory, newBook)
+
 	if err2 != nil {
 		res.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(res).Encode(ErrorResponse{Message: err2.Error()})
@@ -241,83 +213,7 @@ func (h HTTPInteractor) Add(res http.ResponseWriter, req *http.Request) {
 	res.WriteHeader(http.StatusOK)
 }
 
-func (h HTTPInteractor) GetAll(res http.ResponseWriter, req *http.Request) {
-	res.Header().Set("Content-Type", "application/json")
-
-	results, err := h.handler.ListInventory()
-	if err != nil {
-		res.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(res).Encode(ErrorResponse{Message: err.Error()})
-		return
-	}
-
-	res.WriteHeader(http.StatusOK)
-	json.NewEncoder(res).Encode(results)
-}
-
-func ping(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-
-	json.NewEncoder(w).Encode(ResponseInfo{
-		Status: http.StatusOK,
-		Data:   "pong",
-	})
-}
-
-func listBooks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-
-	isbn := r.URL.Query().Get("isbn")
-	if isbn != "" {
-		var sliceBooks []domain.Book
-		for _, v := range inventory {
-			if v.ISBN == isbn {
-				sliceBooks = append(sliceBooks, v)
-			}
-		}
-
-		json.NewEncoder(w).Encode(ResponseInfo{
-			Status: 200,
-			Data:   sliceBooks,
-		})
-		return
-	}
-
-	json.NewEncoder(w).Encode(ResponseInfo{
-		Status: http.StatusOK,
-		Data:   inventory,
-	})
-}
-
-func addBook(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-	var newBook domain.Book
-	err := json.NewDecoder(r.Body).Decode(&newBook)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(ResponseInfo{
-			Status: http.StatusInternalServerError,
-			Data:   err,
-		})
-		return
-	}
-
-	id = id + 1
-	newBook.ID = id
-
-	inventory = append(inventory, newBook)
-
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(ResponseInfo{
-		Status: http.StatusCreated,
-		Data:   newBook,
-	})
-}
-
-func updateBook(w http.ResponseWriter, r *http.Request) {
+func (h Handler) UpdateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	param := mux.Vars(r)
 	idParam := param["id"]
@@ -358,7 +254,7 @@ func updateBook(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func updateBookByPatch(w http.ResponseWriter, r *http.Request) {
+func (h Handler) UpdateBookByPatch(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	param := mux.Vars(r)
 	idParam := param["id"]
@@ -435,7 +331,7 @@ func updateBookByPatch(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func getBookByID(w http.ResponseWriter, r *http.Request) {
+func (h Handler) GetBookByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	param := mux.Vars(r)
 	idParam := param["id"]
@@ -465,7 +361,7 @@ func getBookByID(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func isbn_containes(w http.ResponseWriter, r *http.Request) {
+func (h Handler) ISBNContaines(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	param := mux.Vars(r)
 	isbnParam := param["isbn"]
@@ -484,7 +380,7 @@ func isbn_containes(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func deleteBookByID(w http.ResponseWriter, r *http.Request) {
+func (h Handler) DeleteBookByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	param := mux.Vars(r)
 	idParam := param["id"]
@@ -516,69 +412,4 @@ func deleteBookByID(w http.ResponseWriter, r *http.Request) {
 			Data:   inventory,
 		})
 	}
-}
-
-func search_book_index_byID(neccesaryID uint64, inVentory []domain.Book) int {
-	for i, book := range inVentory {
-		if book.ID == uint(neccesaryID) {
-			return i
-		}
-	}
-	return 0
-}
-
-// List all books on the inventory
-func listBooks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(Inventory)
-}
-
-// Add books to inventory
-func addBooks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-	received_JSON, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, err)
-		return
-	}
-
-	newBooksSlice := make([]InventoryInfo, 0)
-	err = json.Unmarshal(received_JSON, &newBooksSlice)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, `{"error":"Error unmarshaling the request: %v"}`, err)
-		return
-	}
-
-	inventoryMap := make(map[string]int64)
-	for i := 0; i < len(Inventory); i++ {
-		inventoryMap[Inventory[i].Book.ISBN] = Inventory[i].Stock
-	}
-
-	for _, v := range newBooksSlice {
-		if _, found := inventoryMap[v.Book.ISBN]; !found {
-			Inventory = append(Inventory, v)
-		} else {
-			for i := range Inventory {
-				if Inventory[i].Book.ISBN == v.Book.ISBN {
-					Inventory[i].Stock += v.Stock
-					break
-				}
-			}
-		}
-	}
-
-	// fmt.Fprintf(w, "inventoryMap: %+v", inventoryMap)
-	// fmt.Fprintf(w, "Inventory: %+v", Inventory)
-
-	fmt.Fprintln(w, "Inventory:")
-	for _, v := range Inventory {
-		fmt.Fprintln(w, "Book:", v.Book.Title)
-		fmt.Fprintln(w, "Stork:", v.Stock)
-		fmt.Fprintln(w, "------------------")
-	}
-
 }

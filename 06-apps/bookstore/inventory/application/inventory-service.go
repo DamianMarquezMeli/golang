@@ -29,3 +29,12 @@ func (i *InventoryService) GetInventory() ([]domain.BookStock, error) {
 	//results, _ := r.handler.ListInventory()
 	return domain.Inventory, nil
 }
+
+func (i *InventoryService) GetBookIndexByID(neccesaryID uint64, inVentory []domain.Book) int {
+	for i, book := range inVentory {
+		if book.ID == uint(neccesaryID) {
+			return i
+		}
+	}
+	return 0
+}
