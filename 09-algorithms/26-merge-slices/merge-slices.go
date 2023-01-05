@@ -39,7 +39,7 @@ func MergeSlices(s1 []Person, s2 []Person) []Person {
 		check[per] = true
 	}
 
-	for p, _ := range check {
+	for p := range check {
 		res = append(res, p)
 	}
 
@@ -65,7 +65,7 @@ func MergePointersSlices(s1 []*Person, s2 []*Person) []*Person {
 	}
 
 	// iterate over the map and add the unique values to the new slice
-	for p, _ := range check {
+	for p := range check {
 		res = append(res, p)
 	}
 
