@@ -11,7 +11,6 @@ func main() {
 
 	go func() {
 		d <- 123
-
 	}()
 
 	fmt.Println(<-d)

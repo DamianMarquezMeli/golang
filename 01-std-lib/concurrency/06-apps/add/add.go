@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"time"
 
-	cnt "github.com/devpablocristo/golang-examples/std-lib/concurrency/01-goroutines/05-add/count"
+	cnt "count"
 )
 
 func main() {

@@ -9,12 +9,10 @@ func calculate(ch chan int, value int) {
 func main() {
 
 	// Get the value computed from goroutine
-
 	ch := make(chan int)
 
 	// send ch <- v
 	// recibe v = <-ch
-
 	go func(a, b int) {
 		c := a + b
 		ch <- c
