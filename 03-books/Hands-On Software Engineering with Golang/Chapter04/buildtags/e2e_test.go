@@ -1,3 +1,4 @@
+//go:build e2e_tests || all_tests
 // +build e2e_tests all_tests
 
 package all_test

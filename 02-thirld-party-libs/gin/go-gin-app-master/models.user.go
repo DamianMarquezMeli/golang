@@ -19,9 +19,9 @@ type user struct {
 // store passwords securely by salting and hashing them instead
 // of using them as we're doing in this demo
 var userList = []user{
-	user{Username: "user1", Password: "pass1"},
-	user{Username: "user2", Password: "pass2"},
-	user{Username: "user3", Password: "pass3"},
+	{Username: "user1", Password: "pass1"},
+	{Username: "user2", Password: "pass2"},
+	{Username: "user3", Password: "pass3"},
 }
 
 // Check if the username and password combination is valid

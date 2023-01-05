@@ -84,9 +84,9 @@ func WsEndpoint(w http.ResponseWriter, r *http.Request) {
 
 // Goroutine to listen for messages from the websocket
 // 3. When we connect to WS:
-//    1. go ListenForWs(&conn) <- is called
-//    2. go ListenForWs(&conn) <- is a goroutine on a infite loop
-//    3. wsChan <- payload <- everything sent on the payload is pass to wsChan
+//  1. go ListenForWs(&conn) <- is called
+//  2. go ListenForWs(&conn) <- is a goroutine on a infite loop
+//  3. wsChan <- payload <- everything sent on the payload is pass to wsChan
 func ListenForWs(conn *WebSocketConnection) {
 	// use defer to execute this func whenever if it's stops running, it will try recover
 	defer func() {
@@ -109,9 +109,9 @@ func ListenForWs(conn *WebSocketConnection) {
 	}
 }
 
-// 4. Everything on the the payload is store on the variable e
-//    func ListenToWsChannel() <- everything on the the payload is store on the variable e
-//    1. Here is where we process the payload, the logic, where we stract the username or the message.
+//  4. Everything on the the payload is store on the variable e
+//     func ListenToWsChannel() <- everything on the the payload is store on the variable e
+//  1. Here is where we process the payload, the logic, where we stract the username or the message.
 func ListenToWsChannel() {
 	var response WsJsonResponse
 

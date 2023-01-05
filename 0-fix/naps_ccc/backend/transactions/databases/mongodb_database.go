@@ -20,11 +20,13 @@ var (
 
 /*
 var (
+
 	//trs     = "desarrollos3c"
 	//password = "1n9d3s4rr0ll0s"
 	database = "fac_mongo"
 	//host     = "172.30.0.141"
 	//port     = "27017"
+
 )
 */
 func GetCollection(collection string) *mongo.Collection {

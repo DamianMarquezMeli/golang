@@ -37,7 +37,7 @@ A simple example usage:
 	NOTE: Anonymous Structs - they don't have names so expect the Struct name
 	within StructErrors to be blank.
 
-Error Handling
+# Error Handling
 
 The error can be used like so
 
@@ -75,7 +75,7 @@ Flatten will return a map of FieldError's but the field name will be namespaced.
 	// for Name
 	Field will be "Name"
 
-Custom Functions
+# Custom Functions
 
 Custom functions can be added
 
@@ -93,7 +93,7 @@ Custom functions can be added
 	// NOTES: using the same tag name as an existing function
 	//        will overwrite the existing one
 
-Cross Field Validation
+# Cross Field Validation
 
 Cross Field Validation can be implemented, for example Start & End Date range validation
 
@@ -119,7 +119,7 @@ Cross Field Validation can be implemented, for example Start & End Date range va
 		return true
 	}
 
-Multiple Validators
+# Multiple Validators
 
 Multiple validators on a field will process in the order defined
 
@@ -137,7 +137,7 @@ Bad Validator definitions are not handled by the library
 
 	// this definition of min max will never validate
 
-Baked In Validators and Tags
+# Baked In Validators and Tags
 
 NOTE: Baked In Cross field validation only compares fields on the same struct,
 if cross field + cross struct validation is needed your own custom validator
@@ -466,7 +466,7 @@ Validator notes:
 		And the best reason, you can submit a pull request and we can keep on adding to the
 		validation library of this package!
 
-Panics
+# Panics
 
 This package panics when bad input is provided, this is by design, bad code like that should not make it to production.
 

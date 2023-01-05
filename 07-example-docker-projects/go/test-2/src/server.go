@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"github.com/gorilla/mux"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -21,18 +21,17 @@ func main() {
 	http.ListenAndServe(":8080", r)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
-	    
 	//no entiendo pq este no funciona y el otro si
 	//obviamente es el mux
-	
-	/* 	
-	
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello, you've requesteasdadasd: %s\n", r.URL.Path)
-    })
 
-	http.ListenAndServe(":8080", nil)  
-	
+	/*
+
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	        fmt.Fprintf(w, "Hello, you've requesteasdadasd: %s\n", r.URL.Path)
+	    })
+
+		http.ListenAndServe(":8080", nil)
+
 	*/
-	
+
 }

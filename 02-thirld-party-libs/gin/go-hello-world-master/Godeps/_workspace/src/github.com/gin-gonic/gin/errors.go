@@ -115,7 +115,7 @@ func (a errorMsgs) Last() *Error {
 // c.Error(errors.New("second"))
 // c.Error(errors.New("third"))
 // c.Errors.Errors() // == []string{"first", "second", "third"}
-// ``
+// “
 func (a errorMsgs) Errors() []string {
 	if len(a) == 0 {
 		return nil
