@@ -6,7 +6,6 @@ import "fmt"
 // func pong (in <-chan string, out chan<- string) {}
 // in <-chan, is a recibe only channel
 // out chan<-, is a send only channel
-
 func saySomething(c chan string) {
 	v := <-c
 	c <- v + " World!"

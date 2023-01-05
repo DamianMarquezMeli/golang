@@ -15,7 +15,7 @@ func main() {
 		}
 	}()
 
-	// range over channel to recv values
+	// range over channel to recieve values
 	for v := range ch {
 		fmt.Println(v)
 	}
