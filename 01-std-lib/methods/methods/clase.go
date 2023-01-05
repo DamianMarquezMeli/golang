@@ -15,7 +15,7 @@ type Mascota struct {
 }
 
 /*
-	Nuevo método
+Nuevo método
 */
 func (m *Mascota) saludar() {
 	fmt.Printf("¡Hola %s! Bienvenido a casa\n", m.dueño.nombre)

@@ -1,11 +1,11 @@
 package main
 
-import(
+import (
 	"fmt"
 	"tinder/tinderPets"
 )
 
-func main(){
+func main() {
 	fmt.Println("hola")
 	pet := tinderpets.Pet
 }

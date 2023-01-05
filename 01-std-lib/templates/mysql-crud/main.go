@@ -21,10 +21,10 @@ type Names struct {
 // send the parameter `db *sql.DB` to be used by another functions
 func dbConn() (db *sql.DB) {
 
-	dbDriver := "mysql"   // Database driver
-	dbUser := ""      // Mysql username
-	dbPass := "" // Mysql password
-	dbName := ""   // Mysql schema
+	dbDriver := "mysql" // Database driver
+	dbUser := ""        // Mysql username
+	dbPass := ""        // Mysql password
+	dbName := ""        // Mysql schema
 
 	// Realize the connection with mysql driver
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
