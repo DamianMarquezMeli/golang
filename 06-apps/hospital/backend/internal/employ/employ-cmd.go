@@ -39,8 +39,8 @@ func main() {
 }
 
 /*
-	Get
-	http://localhost:8080/formulario-Employ
+Get
+http://localhost:8080/formulario-Employ
 */
 func CrearEmployHTML(c *gin.Context) {
 	//var resultado gin.H
@@ -142,7 +142,7 @@ func CrearEmployXML(c *gin.Context) {
 	c.JSON(http.StatusOK, resultado)
 }
 
-//Post
+// Post
 func CrearEmploy(c *gin.Context) {
 	var resultado gin.H
 	var err error
@@ -168,8 +168,8 @@ func CrearEmploy(c *gin.Context) {
 }
 
 /*
-	Get
-	http://localhost:8080/obterner-Employ/1
+Get
+http://localhost:8080/obterner-Employ/1
 */
 func ObtenerEmploy(c *gin.Context) {
 	var resultado gin.H

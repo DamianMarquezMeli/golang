@@ -26,7 +26,7 @@ const (
 	Retired     = 3
 )
 
-//* Create a function to print server status, including:
+// * Create a function to print server status, including:
 func printServerStatus(servers map[string]int) {
 	//  - Number of servers
 	fmt.Println("\nThere are", len(servers), "servers")

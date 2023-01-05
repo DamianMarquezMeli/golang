@@ -1,6 +1,7 @@
 // generator() -> square() ->
-//														-> merge -> print
-//             -> square() ->
+//
+//															-> merge -> print
+//	            -> square() ->
 package main
 
 import (

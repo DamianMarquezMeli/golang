@@ -19,11 +19,11 @@ func main() {
 }
 
 func trimSlice(data []string) []string { //form1
-// func trimSlice(data ...string) []string { //form2
+	// func trimSlice(data ...string) []string { //form2
 
 	// newData := data[:0]		//note
 	var newData []string
-	
+
 	for _, d := range data {
 		if d != "" {
 			newData = append(newData, d)
@@ -31,4 +31,3 @@ func trimSlice(data []string) []string { //form1
 	}
 	return newData
 }
-

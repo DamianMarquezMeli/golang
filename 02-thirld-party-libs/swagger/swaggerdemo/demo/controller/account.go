@@ -52,7 +52,7 @@ func UpdateAccount(c *gin.Context) {
 // @Summary delete account
 // @Description creates Resource directory
 // @Tags Accounts
-//@Param name path string true "uuid"
+// @Param name path string true "uuid"
 // @Accept  json
 // @Success 200  {object} string "success"
 // @Failure 400  {string} string "error"

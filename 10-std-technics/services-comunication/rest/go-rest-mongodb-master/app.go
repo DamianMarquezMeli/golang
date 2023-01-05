@@ -23,9 +23,9 @@ func main() {
 	log.SetFormatter(logFormatter)
 
 	r := routers.Routers()
-	srv := &http.Server {
-		Handler: r,
-		Addr:    config.Server.Port,
+	srv := &http.Server{
+		Handler:      r,
+		Addr:         config.Server.Port,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}

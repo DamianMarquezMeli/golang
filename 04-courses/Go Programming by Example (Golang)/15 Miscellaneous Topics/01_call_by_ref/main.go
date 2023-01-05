@@ -16,7 +16,7 @@ func main() {
 }
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//'int' is a non-reference type
+// 'int' is a non-reference type
 func testCase1() {
 	x1 := 10
 	x2 := 20
@@ -32,7 +32,7 @@ func f1(y1 int, y2 *int) {
 }
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//'string' is a non-reference type
+// 'string' is a non-reference type
 func testCase2() {
 	s1 := "Hello "
 	s2 := "Hi "
@@ -48,7 +48,7 @@ func f2(q1 string, q2 *string) {
 }
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//'slice' is a reference type; 'array' is a non-ref type
+// 'slice' is a reference type; 'array' is a non-ref type
 const aLen = 7
 
 func testCase3() {
@@ -90,7 +90,7 @@ func processS1(lang []string) {
 }
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//'map' is a reference type
+// 'map' is a reference type
 func testCase4() {
 	sal := map[string]float64{
 		"Blake":  60000.00,

@@ -1,11 +1,11 @@
 package driver
 
 import (
-  "database/sql"
-  "log"
-  "os"
+	"database/sql"
+	"log"
+	"os"
 
-  "github.com/lib/pq"
+	"github.com/lib/pq"
 )
 
 var db *sql.DB
@@ -17,14 +17,14 @@ func logFatal(err error) {
 }
 
 func ConnectDB() *sql.DB {
-  pgUrl, err := pq.ParseURL(os.Getenv("ELEPHANTSQL_URL"))
-  logFatal(err)
+	pgUrl, err := pq.ParseURL(os.Getenv("ELEPHANTSQL_URL"))
+	logFatal(err)
 
-  db, err = sql.Open("postgres", pgUrl)
-  logFatal(err)
+	db, err = sql.Open("postgres", pgUrl)
+	logFatal(err)
 
-  err = db.Ping()
-  logFatal(err)
+	err = db.Ping()
+	logFatal(err)
 
-  return db
+	return db
 }

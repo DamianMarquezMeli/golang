@@ -102,7 +102,7 @@ func CreatePerson(c *gin.Context) {
 }
 
 /*
-	curl -i -X  POST http://localhost:8080/crear -d '{ "NombreUsuario": "pablo", "ContraseñaUsuario":"lalala" }'
+curl -i -X  POST http://localhost:8080/crear -d '{ "NombreUsuario": "pablo", "ContraseñaUsuario":"lalala" }'
 */
 func CrearUsuario(c *gin.Context) {
 	var usuario Usuario

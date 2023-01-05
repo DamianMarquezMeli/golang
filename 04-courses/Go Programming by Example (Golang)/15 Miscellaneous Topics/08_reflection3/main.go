@@ -5,7 +5,7 @@ package main
 
 import (
 	"fmt"
-	"reflect" 
+	"reflect"
 	"strconv"
 )
 

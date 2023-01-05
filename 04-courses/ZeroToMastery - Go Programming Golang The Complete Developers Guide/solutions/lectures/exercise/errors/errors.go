@@ -35,8 +35,8 @@ func (t *TimeParseError) Error() string {
 	return fmt.Sprintf("%v: %v", t.msg, t.input)
 }
 
-//* The function must parse a string into a struct containing:
-//  - Hour, minute, and second integer components
+// * The function must parse a string into a struct containing:
+//   - Hour, minute, and second integer components
 func ParseTime(input string) (Time, error) {
 	components := strings.Split(input, ":")
 	//* If parsing fails, then a descriptive error must be returned

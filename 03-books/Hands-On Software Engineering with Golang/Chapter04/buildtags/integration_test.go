@@ -1,3 +1,4 @@
+//go:build integration_tests || all_tests
 // +build integration_tests all_tests
 
 package all_test

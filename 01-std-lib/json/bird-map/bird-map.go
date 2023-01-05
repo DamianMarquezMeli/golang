@@ -15,7 +15,7 @@ func main() {
 	var result map[string]interface{}
 	json.Unmarshal([]byte(birdJson), &result)
 
-	// The object stored in the "birds" key is also stored as 
+	// The object stored in the "birds" key is also stored as
 	// a map[string]interface{} type, and its type is asserted from
 	// the interface{} type
 	birds := result["birds"].(map[string]interface{})

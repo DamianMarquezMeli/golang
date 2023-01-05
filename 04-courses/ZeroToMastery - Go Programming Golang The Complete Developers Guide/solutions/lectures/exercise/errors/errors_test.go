@@ -2,8 +2,8 @@ package timeparse
 
 import "testing"
 
-//* Write some unit tests to check your work
-//  - Run tests with `go test ./exercise/errors`
+// * Write some unit tests to check your work
+//   - Run tests with `go test ./exercise/errors`
 func TestParseTime(t *testing.T) {
 	table := []struct {
 		time string

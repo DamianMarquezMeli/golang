@@ -76,7 +76,7 @@ var intToWordMap = []string{
 	"nine",
 }
 
-//Debug level logging
+// Debug level logging
 var Debug = false
 
 // Generate Given a Column map with datatypes and a name structName,
@@ -105,7 +105,9 @@ func Generate(columnTypes map[string]map[string]string, columnsSorted []string, 
 // fmtFieldName formats a string as a struct key
 //
 // Example:
-// 	fmtFieldName("foo_id")
+//
+//	fmtFieldName("foo_id")
+//
 // Output: FooID
 func fmtFieldName(s string) string {
 	name := lintFieldName(s)

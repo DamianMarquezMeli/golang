@@ -12,9 +12,9 @@ func TestCenteredAvg(t *testing.T) {
 	}
 
 	tests := []test{
-		test{[]int{10, 20, 40, 60, 80}, 40},
-		test{[]int{2, 4, 6, 8, 10, 12}, 7},
-		test{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 5},
+		{[]int{10, 20, 40, 60, 80}, 40},
+		{[]int{2, 4, 6, 8, 10, 12}, 7},
+		{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 5},
 	}
 
 	for _, v := range tests {

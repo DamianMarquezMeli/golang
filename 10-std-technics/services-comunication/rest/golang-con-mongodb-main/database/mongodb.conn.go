@@ -9,11 +9,11 @@ import (
 )
 
 var (
-	usr 		= "jesus"
-	pwd 		= "123456"
-	host 		= "localhost"
-	port 		= 27017
-	database 	= "tutorial"
+	usr      = "jesus"
+	pwd      = "123456"
+	host     = "localhost"
+	port     = 27017
+	database = "tutorial"
 )
 
 func GetCollection(collection string) *mongo.Collection {
@@ -26,7 +26,7 @@ func GetCollection(collection string) *mongo.Collection {
 		panic(err.Error())
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 10 * time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	err = client.Connect(ctx)
 
 	if err != nil {

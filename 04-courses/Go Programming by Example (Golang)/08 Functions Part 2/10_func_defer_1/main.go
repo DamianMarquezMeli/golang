@@ -15,7 +15,7 @@ func main() {
 	defer showMsg()
 
 	fmt.Println("LOC 2", time.Now())
-	time.Sleep( 5 * time.Second)
+	time.Sleep(5 * time.Second)
 	fmt.Println("LOC 3", time.Now())
 }
 

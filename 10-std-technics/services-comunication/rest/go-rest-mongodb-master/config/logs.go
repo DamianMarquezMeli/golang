@@ -7,7 +7,7 @@ import (
 
 type LogFormatter struct {
 	TimestampFormat string
-	LevelDesc []string
+	LevelDesc       []string
 }
 
 func (f *LogFormatter) Format(entry *log.Entry) ([]byte, error) {

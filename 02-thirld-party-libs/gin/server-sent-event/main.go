@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-//It keeps a list of clients those are currently attached
-//and broadcasting events to those clients.
+// It keeps a list of clients those are currently attached
+// and broadcasting events to those clients.
 type Event struct {
 	// Events are pushed to this channel by the main events-gathering routine
 	Message chan string
@@ -87,8 +87,8 @@ func NewServer() (event *Event) {
 	return
 }
 
-//It Listens all incoming requests from clients.
-//Handles addition and removal of clients and broadcast messages to clients.
+// It Listens all incoming requests from clients.
+// Handles addition and removal of clients and broadcast messages to clients.
 func (stream *Event) listen() {
 	for {
 		select {

@@ -97,11 +97,11 @@ func generateMysqlTypes(obj map[string]map[string]string, columnsSorted []string
 
 		if len(annotations) > 0 {
 			// add colulmn comment
-			comment:=mysqlType["comment"]
+			comment := mysqlType["comment"]
 			structure += fmt.Sprintf("\n%s %s `%s`  //%s", fieldName, valueType, strings.Join(annotations, " "), comment)
 			//structure += fmt.Sprintf("\n%s %s `%s`", fieldName, valueType, strings.Join(annotations, " "))
 		} else {
-			structure += fmt.Sprintf("\n%s %s",fieldName,valueType)
+			structure += fmt.Sprintf("\n%s %s", fieldName, valueType)
 		}
 	}
 	return structure

@@ -16,10 +16,10 @@ package main
 
 import "fmt"
 
-//* Implement a player having the following statistics:
-//  - Health, Max Health
-//  - Energy, Max Energy
-//  - Name
+// * Implement a player having the following statistics:
+//   - Health, Max Health
+//   - Energy, Max Energy
+//   - Name
 type Player struct {
 	name              string
 	health, maxHealth uint

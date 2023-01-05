@@ -3,6 +3,7 @@
 // This package is not meant to be used by itself.
 //
 
+//go:build !windows
 // +build !windows
 
 package sasl

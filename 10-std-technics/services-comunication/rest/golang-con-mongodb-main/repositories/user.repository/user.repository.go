@@ -62,8 +62,8 @@ func Update(user m.User, userId string) error {
 
 	update := bson.M{
 		"$set": bson.M{
-			"name": user.Name,
-			"email": user.Email,
+			"name":       user.Name,
+			"email":      user.Email,
 			"updated_at": time.Now(),
 		},
 	}

@@ -16,7 +16,7 @@ package main
 
 import "fmt"
 
-//* Mathematical operations must be defined as constants using iota
+// * Mathematical operations must be defined as constants using iota
 const (
 	Add = iota
 	Subtract
@@ -26,8 +26,8 @@ const (
 
 type Operation int
 
-//* Write a receiver function that performs the mathematical operation
-//  on two operands
+//   - Write a receiver function that performs the mathematical operation
+//     on two operands
 func (op Operation) calculate(lhs, rhs int) int {
 	switch op {
 	case Add:

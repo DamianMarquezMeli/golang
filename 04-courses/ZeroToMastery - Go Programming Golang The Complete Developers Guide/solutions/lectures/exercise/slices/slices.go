@@ -18,7 +18,7 @@ import "fmt"
 
 type Part string
 
-//* Create a function to print out the contents of the assembly line
+// * Create a function to print out the contents of the assembly line
 func showLine(line []Part) {
 	for i := 0; i < len(line); i++ {
 		part := line[i]

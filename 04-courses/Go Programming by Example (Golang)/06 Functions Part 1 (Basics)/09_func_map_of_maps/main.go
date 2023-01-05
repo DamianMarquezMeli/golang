@@ -15,15 +15,15 @@ func main() {
 
 	employees := map[string]map[string]string{
 
-		"BT": map[string]string{
+		"BT": {
 			"firstName": "Blake",
 			"lastName":  "Travis",
 		},
-		"PC": map[string]string{
+		"PC": {
 			"firstName": "Parker",
 			"lastName":  "Cooper",
 		},
-		"DC": map[string]string{
+		"DC": {
 			"firstName": "Dakota",
 			"lastName":  "Carrington",
 		},

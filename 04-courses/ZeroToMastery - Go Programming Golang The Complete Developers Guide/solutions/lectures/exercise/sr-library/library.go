@@ -40,7 +40,7 @@ type BookEntry struct {
 	lended int // total lended
 }
 
-//* There must only ever be one copy of the library in memory at any time
+// * There must only ever be one copy of the library in memory at any time
 type Library struct {
 	members map[Name]Member
 	books   map[Title]BookEntry

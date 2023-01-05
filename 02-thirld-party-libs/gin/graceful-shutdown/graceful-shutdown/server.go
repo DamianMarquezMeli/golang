@@ -1,3 +1,4 @@
+//go:build go1.8
 // +build go1.8
 
 package main
@@ -51,6 +52,6 @@ func main() {
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server forced to shutdown:", err)
 	}
-	
+
 	log.Println("Server exiting")
 }

@@ -1,47 +1,50 @@
 /*
-	package = proyecto = area de trabajo
-	La primer linea de cada package (paquete, programa), debe declarar a que paquete pertence.
+package = proyecto = area de trabajo
+La primer linea de cada package (paquete, programa), debe declarar a que paquete pertence.
 
-	package main <- pertenece al paquete main.
+package main <- pertenece al paquete main.
 
-	¿Por que llamar 'main' al paquete?
-		Hay 2 tipos de paquetes:
-			· Ejecutables: Crean un ejecutable, un programa que hace algo.
-			· Reusables: Dependecias, librerias.
-		El nombre del paquete determina si es ejecutable o resusable. La palabra 'main' crea un paquete de tipo ejecutable.
+¿Por que llamar 'main' al paquete?
 
-		package main -> go build -> main.exe
-		package lalala -> go build -> nada!
+	Hay 2 tipos de paquetes:
+		· Ejecutables: Crean un ejecutable, un programa que hace algo.
+		· Reusables: Dependecias, librerias.
+	El nombre del paquete determina si es ejecutable o resusable. La palabra 'main' crea un paquete de tipo ejecutable.
 
-		La palabra 'main' es SAGRADA.
+	package main -> go build -> main.exe
+	package lalala -> go build -> nada!
 
-	Los ejectubles, ademas de tener la linea:
-	· package main
-	deben tener la funcion:
-	· func main () {}
+	La palabra 'main' es SAGRADA.
 
-	¿Que signfica 'import fmt'?
-		Importa un paquete, el paquete 'fmt' en este caso. O sea, permite que 'main' tenga acceso a todo el codigo y todas las funcionalidades del paquete 'fmt'.
-		Por defecto 'main' NO tiene acceso a ningún otro paquete, hay que importar cada paquete que se desee utilizar.
-		Para encontrar mas informacion sobre la libreria estandar: golang.org/pkg.
+Los ejectubles, ademas de tener la linea:
+· package main
+deben tener la funcion:
+· func main () {}
 
-	¿Que significa 'func'?
-		func: Indica que esuna funcion.
-		main: Nombre de la funcion.
-		(): Lista de argumentos pasasdos a la funcion.
-		{}: Cuerpo de la función.
+¿Que signfica 'import fmt'?
 
-		func main () {
+	Importa un paquete, el paquete 'fmt' en este caso. O sea, permite que 'main' tenga acceso a todo el codigo y todas las funcionalidades del paquete 'fmt'.
+	Por defecto 'main' NO tiene acceso a ningún otro paquete, hay que importar cada paquete que se desee utilizar.
+	Para encontrar mas informacion sobre la libreria estandar: golang.org/pkg.
 
-		}
+¿Que significa 'func'?
 
-	¿Como esta organizado main.go?
-		package main	<- declaracion del paquete
-		import 'fmt' 	<- importacion de paquetes   necesarios.
-		func main () { 	<- declaracion de funciones.
-			fmt.Println (hola mundo!)
-		}
+	func: Indica que esuna funcion.
+	main: Nombre de la funcion.
+	(): Lista de argumentos pasasdos a la funcion.
+	{}: Cuerpo de la función.
 
+	func main () {
+
+	}
+
+¿Como esta organizado main.go?
+
+	package main	<- declaracion del paquete
+	import 'fmt' 	<- importacion de paquetes   necesarios.
+	func main () { 	<- declaracion de funciones.
+		fmt.Println (hola mundo!)
+	}
 */
 package main
 

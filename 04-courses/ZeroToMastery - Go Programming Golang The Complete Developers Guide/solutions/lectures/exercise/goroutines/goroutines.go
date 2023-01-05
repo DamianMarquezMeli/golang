@@ -34,7 +34,7 @@ import (
 	"time"
 )
 
-//* Sum the numbers in each file noted in the main() function
+// * Sum the numbers in each file noted in the main() function
 func sumFile(rd bufio.Reader) int {
 	sum := 0
 	for {

@@ -77,7 +77,7 @@ func decodeCities(r io.Reader) ([]City, error) {
 }
 
 func createServer(addr string) http.Server {
-	cities := []City{City{"1", "Prague", "Czechia"}, City{"2", "Bratislava", "Slovakia"}}
+	cities := []City{{"1", "Prague", "Czechia"}, {"2", "Bratislava", "Slovakia"}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/cities", func(w http.ResponseWriter, r *http.Request) {
 		enc := json.NewEncoder(w)

@@ -18,7 +18,7 @@ func main() {
 
 	// time.Sleep(2 * time.Second)
 	for val := range c {
-		fmt.Println(val)	// similar to <-c
+		fmt.Println(val) // similar to <-c
 	}
 
 }

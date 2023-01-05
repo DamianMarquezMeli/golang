@@ -23,7 +23,7 @@ type BandwidthUsage struct {
 	amount []Bytes
 }
 
-//* Create functions to calculate averages for each dashboard component
+// * Create functions to calculate averages for each dashboard component
 func (b *BandwidthUsage) AverageBandwidth() int {
 	sum := 0
 	for i := 0; i < len(b.amount); i++ {
@@ -56,8 +56,8 @@ func (m *MemoryUsage) AverageMemoryUsage() int {
 	return sum / len(m.amount)
 }
 
-//* Using struct embedding, create a Dashboard structure that contains
-//  each dashboard component
+//   - Using struct embedding, create a Dashboard structure that contains
+//     each dashboard component
 type Dashboard struct {
 	BandwidthUsage
 	CpuTemp

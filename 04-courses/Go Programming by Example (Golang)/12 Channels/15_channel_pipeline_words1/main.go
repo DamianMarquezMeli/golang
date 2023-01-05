@@ -15,7 +15,6 @@ import (
 // 2) The 'uWords' (uppercase words) goroutine that converts the randomly-generated
 // words to uppercase;
 // Use anonymous functions to write your goroutines.
-//
 func main() {
 
 	babbler := tjarratt.NewBabbler() // requires "github.com/tjarratt/babble"

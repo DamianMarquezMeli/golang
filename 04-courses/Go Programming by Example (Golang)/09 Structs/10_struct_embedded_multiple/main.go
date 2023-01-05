@@ -20,7 +20,7 @@ type student struct {
 	person
 	id int
 }
-	
+
 func main() {
 
 	var s student
