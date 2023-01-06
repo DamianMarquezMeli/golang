@@ -136,6 +136,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("END!")
 }
 
 func writeToFile(data []byte) error {
