@@ -8,10 +8,10 @@ import (
 )
 
 type PersonService struct {
-	//storage port.Storage
+	storage port.Storage
 }
 
-func NewPersonaApplication( /*s port.Storage, h port.Handler*/ ) *PersonService {
+func NewPersonaService( /*s port.Storage, h port.Handler*/ ) *PersonService {
 	return &PersonService{
 		//storage: s,
 		//handler: h,

@@ -3,7 +3,9 @@ package port
 import "github.com/devpablocristo/golang/06-apps/qh/person/domain"
 
 type Storage interface {
-	Exists(uuid string) bool
-	Add(p domain.Person)
-	List() map[string]domain.Person
+	SavePerson(domain.Person) error
+	GetPerson(string) (domain.Person, error)
+	ListPersons() ([]domain.Person, error)
+	DeletePerson(string) error
+	UpdatePerson(string) error
 }
