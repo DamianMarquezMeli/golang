@@ -1,12 +1,16 @@
 package domain
 
-import "time"
+import (
+	"time"
+
+	pdomain "github.com/devpablocristo/golang/06-apps/bookstore/person/domain"
+)
 
 type Book struct {
-	Author Person  `json:"author"`
-	Title  string  `json:"title"`
-	Price  float64 `json:"price"`
-	ISBN   string  `json:"isbn"`
+	Author pdomain.Person `json:"author"`
+	Title  string         `json:"title"`
+	Price  float64        `json:"price"`
+	ISBN   string         `json:"isbn"`
 }
 
 type BookStock struct {

@@ -13,10 +13,6 @@ func main() {
 		port = defaultPort
 	}
 
-	Start(port)
-}
-
-func Start(port string) {
 	r := routes()
 	server := newServer(port, r)
 	server.Start()

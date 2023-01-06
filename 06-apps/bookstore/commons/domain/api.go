@@ -1,4 +1,4 @@
-package cmsdomain
+package domain
 
 type ResponseInfo struct {
 	Status int `json:"status"`
