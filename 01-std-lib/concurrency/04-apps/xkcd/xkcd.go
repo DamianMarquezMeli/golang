@@ -67,8 +67,8 @@ type Job struct {
 	number int
 }
 
-var jobs = make(chan Job, 100)
-var results = make(chan Result, 100)
+var jobs = make(chan Job, 1)
+var results = make(chan Result, 1)
 var resultCollection []Result
 
 func allocateJobs(noOfJobs int) {
@@ -136,6 +136,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("END!")
 }
 
 func writeToFile(data []byte) error {
