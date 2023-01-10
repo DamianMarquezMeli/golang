@@ -1,71 +1,54 @@
-package api
+package handler
 
 import (
 	"context"
+	"flag"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"time"
-
-	"github.com/gorilla/mux"
 )
 
-type server struct {
-	*http.Server
-}
+func (h *Handler) StartServer() error {
+	var wait time.Duration
+	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duration for which the server gracefully wait for existing connections to finish - e.g. 15s or 1m")
+	flag.Parse()
 
-func newServer(listening string, mux *mux.Router) *server {
-	s := &http.Server{
-		Addr:         listening,
-		Handler:      mux,
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		IdleTimeout:  15 * time.Second,
-	}
+	serverErr := make(chan error)
 
-	return &server{s}
-}
-
-// Start runs ListenAndServe on the http.Server with graceful shutdown
-func (srv *server) Start() {
-	log.Println("starting API cmd")
-
+	// Run our server in a goroutine so that it doesn't block.
 	go func() {
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("could not listen on %s due to %s", srv.Addr, err.Error())
+		if err := h.server.ListenAndServe(); err != nil {
+			log.Println(err)
+			serverErr <- err
 		}
 	}()
-	log.Printf("cmd is ready to handle requests %s", srv.Addr)
-	srv.gracefulShutdown()
-}
+	close(serverErr)
 
-func (srv *server) gracefulShutdown() {
-	quit := make(chan os.Signal, 1)
-
-	signal.Notify(quit, os.Interrupt)
-	sig := <-quit
-	log.Printf("cmd is shutting down %s", sig.String())
-
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	srv.SetKeepAlivesEnabled(false)
-	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatalf("could not gracefully shutdown the cmd %s", err.Error())
+	select {
+	case err := <-serverErr:
+		return err
 	}
-	log.Printf("cmd stopped")
-}
 
+	c := make(chan os.Signal, 1)
+	// We'll accept graceful shutdowns when quit via SIGINT (Ctrl+C)
+	// SIGKILL, SIGQUIT or SIGTERM (Ctrl+/) will not be caught.
+	signal.Notify(c, os.Interrupt)
 
+	// Block until we receive our signal.
+	<-c
 
-func main() {
-	router := mux.NewRouter()
+	// Create a deadline to wait for.
+	ctx, cancel := context.WithTimeout(context.Background(), wait)
+	defer cancel()
+	// Doesn't block if no connections, but will otherwise wait
+	// until the timeout deadline.
+	h.server.Shutdown(ctx)
+	// Optionally, you could run h.server.Shutdown in a goroutine and block on
+	// <-ctx.Done() if your application should wait for other services
+	// to finalize based on context cancellation.
+	log.Println("shutting down")
+	os.Exit(0)
 
-	const port string = ":8000"
-
-
-	log.Println("Server listining on port", port)
-	log.Fatalln(http.ListenAndServe(port, router))
-}
+	return nil
 }

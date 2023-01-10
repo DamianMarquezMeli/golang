@@ -6,35 +6,51 @@ import (
 )
 
 type InventoryService struct {
-	storage port.Service
+	storage port.Repository
 }
 
-func NewInventoryService(st port.Service) *InventoryService {
+func NewInventoryService(st port.Repository) *InventoryService {
 	return &InventoryService{
 		storage: st,
 	}
 }
 
-func (i *InventoryService) GetBook(ISBN string) *domain.Book {
-	//i.Book.Title = strings.ToLower(i.Book.Title)
-	return &domain.Book{}
-}
-
 func (i *InventoryService) SaveBook(book *domain.Book) error {
-	//return r.handler.SaveBook(book)
+	err := i.storage.SaveBook(book)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-func (i *InventoryService) GetInventory() ([]domain.BookStock, error) {
-	//results, _ := r.handler.ListInventory()
-	return domain.Inventory, nil
+func (i *InventoryService) GetBook(ISBN string) (*domain.Book, error) {
+	book, err := i.storage.GetBook(ISBN)
+	if err != nil {
+		return &domain.Book{}, err
+	}
+	return book, nil
 }
 
-func (i *InventoryService) GetBookIndexByID(neccesaryID uint64, inVentory []domain.Book) int {
-	for i, book := range inVentory {
-		if book.ID == uint(neccesaryID) {
-			return i
-		}
+func (i *InventoryService) GetInventory() (map[string]*domain.BookStock, error) {
+	inventory, err := i.storage.GetInventory()
+	if err != nil {
+		return nil, err
 	}
-	return 0
+	return inventory, nil
+}
+
+func (i *InventoryService) UpdateBook(book *domain.Book) error {
+	err := i.storage.UpdateBook(book)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InventoryService) DeleteBook(ISBN string) error {
+	err := i.storage.DeleteBook(ISBN)
+	if err != nil {
+		return err
+	}
+	return nil
 }

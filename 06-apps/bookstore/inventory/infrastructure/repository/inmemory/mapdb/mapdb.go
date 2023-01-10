@@ -1,41 +1,61 @@
 package mapdb
 
 import (
-	inventory "github.com/devpablocristo/interviews/b6/inventory/domain"
+	"errors"
+	"time"
+
+	"github.com/devpablocristo/golang/06-apps/bookstore/inventory/domain"
 )
 
 type MapDB struct {
-	Inventory map[string]inventory.Book
+	Inventory map[string]*domain.BookStock
 }
 
 func NewMapDB() *MapDB {
-	var m MapDB
-	m.Inventory = make(map[string]inventory.Book)
-	return &m
+	return &MapDB{}
 }
 
-func (m MapDB) SaveBook(book inventory.Book) error {
-	m.Inventory[book.ISBN] = book
-	return nil
-}
+func (m *MapDB) SaveBook(book *domain.Book) error {
+	found := m.searchBook(book.ISBN)
+	if !found {
+		newBookStock := domain.BookStock{
+			Book:      book,
+			Stock:     1,
+			CreatedAt: time.Now(),
+		}
 
-func (m MapDB) GetBook(isbn string) (inventory.Book, error) {
-	return m.Inventory[isbn], nil
-}
-
-func (m MapDB) ListInventory() ([]inventory.Book, error) {
-	var results []inventory.Book
-	for _, book := range m.Inventory {
-		results = append(results, book)
+		m.Inventory[book.ISBN] = &newBookStock
+		return nil
 	}
-	return results, nil
+
+	return errors.New("book found")
 }
 
-func (m MapDB) DeleteBook(isbn string) error {
-	delete(m.Inventory, isbn)
+func (m *MapDB) GetBook(ISBN string) (*domain.Book, error) {
+	return m.Inventory[ISBN].Book, nil
+}
+
+func (m *MapDB) GetInventory() (map[string]*domain.BookStock, error) {
+	return m.Inventory, nil
+}
+
+func (m *MapDB) UpdateBook(book *domain.Book) error {
+	found := m.searchBook(book.ISBN)
+	if !found {
+		return errors.New("book not found")
+	}
+
+	m.Inventory[book.ISBN].Book = book
+	m.Inventory[book.ISBN].Stock = m.Inventory[book.ISBN].Stock + 1
 	return nil
 }
 
-func (m MapDB) Name() string {
-	return "MapDB"
+func (m *MapDB) DeleteBook(ISBN string) error {
+	delete(m.Inventory, ISBN)
+	return nil
+}
+
+func (m *MapDB) searchBook(ISBN string) bool {
+	_, found := m.Inventory[ISBN]
+	return found
 }

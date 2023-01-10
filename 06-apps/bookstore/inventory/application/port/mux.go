@@ -3,9 +3,9 @@ package port
 import "net/http"
 
 type MuxRouter interface {
-	GET(path string, handler func(w http.ResponseWriter, r *http.Request))
-	POST(path string, handler func(w http.ResponseWriter, r *http.Request))
-	PUT(path string, handler func(w http.ResponseWriter, r *http.Request))
-	PATCH(path string, handler func(w http.ResponseWriter, r *http.Request))
-	DELETE(path string, handler func(w http.ResponseWriter, r *http.Request))
+	get(path string, handler func(w http.ResponseWriter, r *http.Request))
+	post(path string, handler func(w http.ResponseWriter, r *http.Request))
+	put(path string, handler func(w http.ResponseWriter, r *http.Request))
+	patch(path string, handler func(w http.ResponseWriter, r *http.Request))
+	delete(path string, handler func(w http.ResponseWriter, r *http.Request))
 }
