@@ -5,11 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch file",
+            "type": "go",
+            "request": "launch",
+            "port": 2345,
+            "host": "127.0.0.1",
+            "mode": "debug",
+            "program": "${file}"
+        },
+     
+        {
             "name": "Launch Package",
             "type": "go",
             "request": "launch",
+            "port": 2345,
+            "host": "127.0.0.1",
             "mode": "auto",
-            "program": "${fileDirname}"
+            "program": "${workspaceRoot})/."
         }
     ]
 }
