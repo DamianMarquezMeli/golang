@@ -1,11 +1,15 @@
 package port
 
-import "github.com/devpablocristo/golang/06-apps/qh/person/domain"
+import (
+	"context"
+
+	"github.com/devpablocristo/golang/06-projects/qh/person/domain"
+)
 
 type Storage interface {
-	SavePerson(domain.Person) error
-	GetPerson(string) (domain.Person, error)
-	ListPersons() ([]domain.Person, error)
-	DeletePerson(string) error
-	UpdatePerson(string) error
+	SavePerson(context.Context, *domain.Person) error
+	GetPerson(context.Context, string) (*domain.Person, error)
+	ListPersons(context.Context) map[string]*domain.Person
+	DeletePerson(context.Context, string) error
+	UpdatePerson(context.Context, string) error
 }

@@ -9,7 +9,7 @@ import (
 func RunHttpServer(port string, routes http.Handler) {
 	log.Println("starting chi server")
 
-	sv := &http.Server{
+	httpServer := &http.Server{
 		Addr:         ":" + port,
 		Handler:      routes,
 		ReadTimeout:  5 * time.Second,
@@ -18,12 +18,12 @@ func RunHttpServer(port string, routes http.Handler) {
 	}
 
 	go func() {
-		err := sv.ListenAndServe()
+		err := httpServer.ListenAndServe()
 		if err != nil {
 			if err != http.ErrServerClosed {
-				log.Fatalf("could not listen on %s due to %s", sv.Addr, err.Error())
+				log.Fatalf("could not listen on %s due to %s", httpServer.Addr, err.Error())
 			}
 		}
 	}()
-	log.Printf("the chi server is ready to handle requests %s", sv.Addr)
+	log.Printf("the chi server is ready to handle requests %s", httpServer.Addr)
 }

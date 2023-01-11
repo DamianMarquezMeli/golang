@@ -4,7 +4,7 @@ import (
 	"os"
 	"sync"
 
-	chiAdapter "github.com/devpablocristo/golang/06-apps/qh/person/infrastructure/driver-adapter/handler/chi"
+	person "github.com/devpablocristo/golang/06-projects/qh/person"
 )
 
 const defaultPort = "8080"
@@ -18,21 +18,9 @@ func main() {
 		port = defaultPort
 	}
 
-	// mux := mux.NewRouter()
-	// repo := madb.NewMapDB()
-	// service := appl.NewInventoryService(repo)
-	// handler := hand.NewHandler(service, port, mux)
-
-	// log.Println("Server listining on port", port)
-	// handler.SetupRoutes()
-	// err := handler.StartServer()
-	// if err != nil {
-	// 	log.Fatal(err.Error())
-	// }
-
 	wg.Add(2)
-	go chiAdapter.People(&wg)
-	go chiAdapter.StartApi(&wg, port)
+	go person.LoadPerons(&wg)
+	go person.StartPersonApi(&wg, port)
 	//go chiAdapter.StartApi(&wg, port)
 
 	// app := fx.New(

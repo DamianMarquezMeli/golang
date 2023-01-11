@@ -3,12 +3,13 @@ package port
 import (
 	"context"
 
-	"github.com/devpablocristo/golang/06-apps/qh/person/domain"
+	"github.com/devpablocristo/golang/06-projects/qh/person/domain"
 )
 
 type Service interface {
-	GetPersons(context.Context) ([]domain.Person, error)
-	GetPersonByID(domain.Person) error
+	GetPersons(context.Context) (map[string]*domain.Person, error)
+	GetPerson(context.Context, string) (*domain.Person, error)
 	CreatePerson(context.Context, *domain.Person) (*domain.Person, error)
-	ListPersons() map[string]domain.Person
+	UpdatePerson(context.Context, string) error
+	DeletePerson(context.Context, string) error
 }

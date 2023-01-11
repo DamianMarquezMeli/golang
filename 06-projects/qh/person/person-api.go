@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/devpablocristo/golang/06-apps/qh/person/application"
-	"github.com/devpablocristo/golang/06-apps/qh/person/domain"
-	"github.com/devpablocristo/golang/06-projects/qh/person/infrastructure/driver-adapter/handler/chihandler"
+	application "github.com/devpablocristo/golang/06-projects/qh/person/application"
+	domain "github.com/devpablocristo/golang/06-projects/qh/person/domain"
+	slicedb "github.com/devpablocristo/golang/06-projects/qh/person/infrastructure/driven-adapter/repository/slicedb"
+	chihandler "github.com/devpablocristo/golang/06-projects/qh/person/infrastructure/driver-adapter/handler/chi"
 )
 
 var (
@@ -31,7 +32,7 @@ func init() {
 	}
 }
 
-func People(wg *sync.WaitGroup) {
+func LoadPerons(wg *sync.WaitGroup) {
 	people := []domain.Person{
 		p1,
 		p2,
@@ -45,15 +46,17 @@ func People(wg *sync.WaitGroup) {
 
 }
 
-func StartApi(wg *sync.WaitGroup, port string) {
+func StartPersonApi(wg *sync.WaitGroup, port string) {
 	defer wg.Done()
 
 	// db := postgres.ConnectToDB()
 	// defer db.Close()
 
-	ps := application.NewPersonService()
-	chihandler.NewChiHandler(ps)
-
-	routes := SetupChiRoutes()
-	RunHttpServer(port, routes)
+	//mdb := mapdb.NewMapDB()
+	sdb := slicedb.NewSliceDB()
+	//pse := application.NewPersonService(mdb)
+	pse := application.NewPersonService(sdb)
+	han := chihandler.NewChiHandler(pse)
+	rou := SetupChiRoutes(han)
+	RunHttpServer(port, rou)
 }

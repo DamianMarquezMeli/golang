@@ -2,72 +2,46 @@ package application
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/devpablocristo/golang/06-apps/qh/person/application/port"
-	"github.com/devpablocristo/golang/06-apps/qh/person/domain"
+	"github.com/devpablocristo/golang/06-projects/qh/person/application/port"
+	"github.com/devpablocristo/golang/06-projects/qh/person/domain"
 )
 
 type PersonService struct {
 	storage port.Storage
 }
 
-func NewPersonService( /*s port.Storage, h port.Handler*/ ) *PersonService {
+func NewPersonService(s port.Storage) *PersonService {
 	return &PersonService{
-		//storage: s,
-		//handler: h,
+		storage: s,
 	}
 }
 
-func (ps *PersonService) GetPersons(ctx context.Context) ([]domain.Person, error) {
-
-	p1 := domain.Person{
-		UUID:      "1",
-		Firstname: "Homero",
-		Lastname:  "Simpson",
-		Age:       39,
-	}
-
-	p2 := domain.Person{
-		UUID:      "2",
-		Firstname: "Marge",
-		Lastname:  "Simpson",
-		Age:       32,
-	}
-
-	people := []domain.Person{
-		p1,
-		p2,
-	}
-
-	return people, nil
+func (ps *PersonService) GetPersons(ctx context.Context) (map[string]*domain.Person, error) {
+	persons := ps.storage.ListPersons(ctx)
+	return persons, nil
 }
 
-func (ps *PersonService) GetPersonByID(p domain.Person) error {
-	// if ps.storage.Exists(p.UUID) {
-	// 	return ErrPersonExists
-	// }
-
-	// ps.storage.Add(p)
-
-	return nil
-}
-
-func (ps *PersonService) CreatePerson(ctx context.Context, p *domain.Person) (*domain.Person, error) {
-	// if ps.storage.Exists(p.UUID) {
-	// 	return ErrPersonExists
-	// }
-
-	// ps.storage.Add(p)
-
-	fmt.Println(p)
-
+func (ps *PersonService) GetPerson(ctx context.Context, UUID string) (*domain.Person, error) {
+	p, err := ps.storage.GetPerson(ctx, UUID)
+	if err != nil {
+		return nil, err
+	}
 	return p, nil
 }
 
-func (ps *PersonService) ListPersons() map[string]domain.Person {
-	//return ps.storage.List()
+func (ps *PersonService) CreatePerson(ctx context.Context, p *domain.Person) (*domain.Person, error) {
+	err := ps.storage.SavePerson(ctx, p)
+	if err != nil {
+		return &domain.Person{}, err
+	}
+	return p, nil
+}
 
-	mp := make(map[string]domain.Person)
-	return mp
+func (ps *PersonService) UpdatePerson(ctx context.Context, UUID string) error {
+	return ps.storage.UpdatePerson(ctx, UUID)
+}
+
+func (ps *PersonService) DeletePerson(ctx context.Context, UUID string) error {
+	return ps.storage.DeletePerson(ctx, UUID)
 }
