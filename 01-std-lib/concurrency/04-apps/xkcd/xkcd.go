@@ -71,6 +71,11 @@ var jobs = make(chan Job, 1)
 var results = make(chan Result, 1)
 var resultCollection []Result
 
+/*
+asigna los trabajos al canal global jobs.
+un job es el numero de comic a obtener
+se crean tantos jobs como sean necesarios
+*/
 func allocateJobs(noOfJobs int) {
 	for i := 0; i <= noOfJobs; i++ {
 		jobs <- Job{i + 1}
@@ -78,6 +83,10 @@ func allocateJobs(noOfJobs int) {
 	close(jobs)
 }
 
+/*
+probar si range a un canal con buffer,
+espera a que el canal este closed para finalizar el loop
+*/
 func worker(wg *sync.WaitGroup) {
 	for job := range jobs {
 		result, err := fetch(job.number)
