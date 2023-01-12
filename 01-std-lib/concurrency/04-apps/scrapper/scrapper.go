@@ -23,10 +23,11 @@ type droneStatus struct {
 	distance int
 }
 
-type 
+ 
 
 func newDrone(id int) drone {
 	return drone{
+		UUID: id,
 		battery: rand.Intn(100),
 		position: position{
 			x: 0,
@@ -64,7 +65,7 @@ func skynet() {
 
 	dronesQuantity := 5
 	for i := 0; i < dronesQuantity; i++ {
-		go doDroneThings(newDrone(), droneCom)
+		go doDroneThings(newDrone(i), droneCom)
 	}
 
 	go assignJobs(jobs)
