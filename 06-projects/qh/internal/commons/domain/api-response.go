@@ -24,6 +24,7 @@ func Success(result any, status int) *ResponseAPI {
 		Result:  result,
 	}
 }
+
 func (r *ResponseAPI) Send(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(r.Status)
