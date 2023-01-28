@@ -12,7 +12,6 @@ func TestHello(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
-	// this is a subtest!!!!
 	t.Run("multiply 2 * 3", func(t *testing.T) {
 		got := Multiply(2, 3)
 		want := 6
@@ -22,7 +21,6 @@ func TestMultiply(t *testing.T) {
 		}
 	})
 
-	// this is a subtest!!!!
 	t.Run("multiply by 3 * 5", func(t *testing.T) {
 		got := Multiply(3, 5)
 		want := 15
@@ -32,7 +30,6 @@ func TestMultiply(t *testing.T) {
 		}
 	})
 
-	// this is a subtest!!!!
 	t.Run("multiply by 4 * 4", func(t *testing.T) {
 		got := Multiply(3, 5)
 		want := 198
