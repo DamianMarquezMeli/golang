@@ -1,4 +1,4 @@
-package chihandler
+package handler
 
 import (
 	"encoding/json"
