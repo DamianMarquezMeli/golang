@@ -1,1 +1,0 @@
-mockgen --source math.go -destination mock_test.go -package math -self_package github.com/devpablocristo/go-concepts/3rd-party-libs/testing/math

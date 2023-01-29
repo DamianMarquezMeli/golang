@@ -1,8 +1,6 @@
 package main
 
-func add(a, b int) (int, error) {
-
+func add(a, b int) int {
 	r := a + b
-
-	return r, nil
+	return r
 }

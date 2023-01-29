@@ -8,6 +8,3 @@ Steps:
 Passing data:
 
 html file: {{.}} <--- data in that point of execution.
-
-
-note: continue v7
