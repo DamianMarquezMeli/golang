@@ -2,13 +2,12 @@ package main
 
 import "fmt"
 
+// command: go run main.go add.go sub.go
 func main() {
 
-	sum, _ := add(2, 3)
-
-	sub, _ := sub(3, 10)
-
+	sum := add(2, 3)
 	fmt.Println(sum)
-	fmt.Println(sub)
 
+	sub := sub(3, 10)
+	fmt.Println(sub)
 }

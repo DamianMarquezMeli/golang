@@ -1,8 +1,7 @@
 package main
 
-func sub(a, b int) (int, error) {
-
+// not accessible
+func sub(a, b int) int {
 	r := a - b
-
-	return r, nil
+	return r
 }
