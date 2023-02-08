@@ -70,8 +70,8 @@ func (s *Square2) Rectangle() Rectangle {
 // Sized es tambien de tipo Rectangle
 // Square es una estructura que implementa Rectangle
 // Con el methodset the Rectangle esta contenido en Square,
-// porque este lo implmenta, entonces Square es tambien de tipo Sized
-// por lo tanto puede ser usado con paramentro cuendo se espera un Sized
+// porque este lo implementa, entonces Square es tambien de tipo Sized
+// por lo tanto puede ser usado con paramentro cuando se espera un Sized
 func UseIt(sized Sized) {
 	width := sized.GetWidth()
 	sized.SetHeight(10)
