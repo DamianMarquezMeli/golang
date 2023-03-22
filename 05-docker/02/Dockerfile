@@ -1,4 +1,4 @@
-FROM golang:1.14.4-alpine3.12 as debug
+FROM golang:1.20.1-alpine3.17 as build
 
 # installing git
 RUN apk update && apk upgrade && \
@@ -28,6 +28,6 @@ ENTRYPOINT [ "/dlv.sh"]
 # hasta aqui llega la image 'debug'
 ###########START NEW IMAGE###################
 
-FROM alpine:3.12 as prod
+FROM alpine:3.17.2 as prod
 COPY --from=debug /go/src/work/app /
 CMD ./app
