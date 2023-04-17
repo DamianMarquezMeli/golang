@@ -1,5 +1,11 @@
 # Doc
 
+## Requeriments
+
+Have istalled locally:
+- docker
+- docker-compose
+
 ## Run
 
 Run run the project: $ sudo make up
