@@ -1,3 +1,8 @@
+/*
+Crear un programa que reciba una pila de medias representada por un slice de enteros y cuenta cuántos pares hay en la pila. Cada número en la pila representa una media, y un par se forma cuando se encuentran dos medias del mismo número.
+La salida del programa será un número entero que indica la cantidad de pares que se encontraron en la pila de medias representada por el slice de enteros.
+*/
+
 package main
 
 import "fmt"
