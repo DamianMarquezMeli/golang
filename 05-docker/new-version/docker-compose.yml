@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.api
     ports:
-      - "8080:8080"
+      - "9000:8080"
     restart: unless-stopped
     depends_on:
       - mysql
@@ -22,7 +22,7 @@ services:
     restart: always
     ports:
       - "3306:3306"
-    image: mysql:8.0.23
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: app
       MYSQL_USER: tester
