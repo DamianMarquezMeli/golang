@@ -1,7 +1,7 @@
 # cross parameters
 SHELL:=/bin/bash -O extglob
-BINARY=patients-api
-VERSION=0.1.0
+BINARY=app
+VERSION=0.1
 
 LDFLAGS=-ldflags "-X main.Version=${VERSION}"
 
