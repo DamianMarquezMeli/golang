@@ -16,12 +16,14 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	itemRepository := repository.NewMySQLItemRepository(conn)
+
+  itemRepository := repository.NewMySQLItemRepository(conn)
 	//itemRepository := repository.NewItemRepository()
 	itemUsecase := usecase.NewItemUsecase(itemRepository)
 	itemController := ctrl.NewItemController(itemUsecase)
 
 	if err := web.NewHTTPServer(itemController); err != nil {
+
 		log.Fatalln(err)
 	}
 }
