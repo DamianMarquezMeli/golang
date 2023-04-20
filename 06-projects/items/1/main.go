@@ -31,6 +31,7 @@ func main() {
 	}
 }
 
+// funcion helloWorld
 func helloWorld(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "¡Hello World!")
 }
