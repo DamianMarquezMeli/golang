@@ -12,13 +12,13 @@ import (
 	"github.com/mercadolibre/items/internal/usecase"
 )
 
-type BookController struct {
-	bookUsecase usecase.BookUsecase
+type ItemController struct {
+	itemUsecase usecase.ItemUsecase
 }
 
-func NewBookController(bookUsecase usecase.BookUsecase) BookController {
-	return BookController{
-		bookUsecase: bookUsecase,
+func NewItemController(itemUsecase usecase.ItemUsecase) ItemController {
+	return ItemController{
+		itemUsecase: itemUsecase,
 	}
 }
 
@@ -29,20 +29,20 @@ func Pong(c *gin.Context) {
 	})
 }
 
-func (ctrl BookController) GetBooks(c *gin.Context) {
-	books, err := ctrl.bookUsecase.GetAllBooks()
+func (ctrl ItemController) GetItems(c *gin.Context) {
+	items, err := ctrl.itemUsecase.GetAllItems()
 	c.JSON(http.StatusInternalServerError, presenter.ApiError{
 		StatusCode: http.StatusInternalServerError,
-		Message:    fmt.Sprintf("error getting books: %s", err.Error()),
+		Message:    fmt.Sprintf("error getting items: %s", err.Error()),
 	})
 
-	c.JSON(http.StatusOK, presenter.BooksResponse{
+	c.JSON(http.StatusOK, presenter.ItemsResponse{
 		Error: false,
-		Data:  presenter.Books(books),
+		Data:  presenter.Items(items),
 	})
 }
 
-type bookRequestDTO struct {
+type itemRequestDTO struct {
 	Code   string `json:"code" binding:"required"`
 	Author string `json:"author" binding:"required"`
 	Title  string `json:"title" binding:"required"`
@@ -50,10 +50,10 @@ type bookRequestDTO struct {
 	Stock  int    `json:"stock" binding:"required"`
 }
 
-func (ctrl BookController) AddBook(c *gin.Context) {
-	var bookRequest bookRequestDTO
+func (ctrl ItemController) AddItem(c *gin.Context) {
+	var itemRequest itemRequestDTO
 
-	if err := c.ShouldBindJSON(&bookRequest); err != nil {
+	if err := c.ShouldBindJSON(&itemRequest); err != nil {
 		c.JSON(http.StatusBadRequest, presenter.ApiError{
 			StatusCode: http.StatusBadRequest,
 			Message:    fmt.Sprintf("invalid json: %s", err.Error()),
@@ -61,20 +61,20 @@ func (ctrl BookController) AddBook(c *gin.Context) {
 		return
 	}
 
-	book := entity.Book{
-		Code:   bookRequest.Code,
-		Author: bookRequest.Author,
-		Title:  bookRequest.Title,
-		Price:  bookRequest.Price,
-		Stock:  bookRequest.Stock,
+	item := entity.Item{
+		Code:        itemRequest.Code,
+		Description: itemRequest.Author,
+		Title:       itemRequest.Title,
+		Price:       itemRequest.Price,
+		Stock:       itemRequest.Stock,
 	}
 
-	result, err := ctrl.bookUsecase.AddBook(book)
+	result, err := ctrl.itemUsecase.AddItem(item)
 	if err != nil {
 		var errorMsg string
 		var httpStatus int
 
-		existError := new(entity.BookAlreadyExist)
+		existError := new(entity.ItemAlreadyExist)
 		if ok := errors.As(err, existError); ok {
 			httpStatus = http.StatusBadRequest
 			errorMsg = existError.Error()
@@ -90,13 +90,13 @@ func (ctrl BookController) AddBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, presenter.BookResponse{
+	c.JSON(http.StatusOK, presenter.ItemResponse{
 		Error: false,
-		Data:  presenter.Book(result),
+		Data:  presenter.Item(result),
 	})
 }
 
-func (ctrl *BookController) GetBook(c *gin.Context) {
+func (ctrl *ItemController) GetItem(c *gin.Context) {
 	idParam := c.Param("id")
 
 	id, err := strconv.Atoi(idParam)
@@ -108,12 +108,12 @@ func (ctrl *BookController) GetBook(c *gin.Context) {
 		return
 	}
 
-	book, err := ctrl.bookUsecase.GetBookByID(id)
+	item, err := ctrl.itemUsecase.GetItemByID(id)
 	if err != nil {
 		var errorMsg string
 		var httpStatus int
 
-		notFoundError := new(entity.BookNotFound)
+		notFoundError := new(entity.ItemNotFound)
 		if ok := errors.As(err, notFoundError); ok {
 			httpStatus = http.StatusNotFound
 			errorMsg = notFoundError.Error()
@@ -129,8 +129,8 @@ func (ctrl *BookController) GetBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, presenter.BookResponse{
+	c.JSON(http.StatusOK, presenter.ItemResponse{
 		Error: false,
-		Data:  presenter.Book(book),
+		Data:  presenter.Item(item),
 	})
 }
